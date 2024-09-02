@@ -9,6 +9,11 @@
 </head>
 <body>
     <h1>Make your orders here</h1>
-    <a href="{%url 'home' %}">Go back</a>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ orderform}}
+        <input type="submit" name="Submit" >
+    </form>
+    <a href="{%url 'home' %}" class="btn btn-primary my-5">Go back</a>
 </body>
 </html>
