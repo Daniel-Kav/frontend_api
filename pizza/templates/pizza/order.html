@@ -13,8 +13,8 @@
         {% csrf_token %}
         {{note}}
         {{ orderform}}
-        <input type="submit" name="Submit" >
+        <input type="submit" name="Submit" class="btn btn-secondary my-3 mx-3" >
     </form>
-    <a href="{%url 'home' %}" class="btn btn-primary my-5">Go back</a>
+    <a href="{%url 'home' %}" class="btn btn-primary my-5 mx-5">Go back</a>
 </body>
 </html>
