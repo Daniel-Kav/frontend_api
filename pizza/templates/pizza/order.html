@@ -11,6 +11,7 @@
     <h1>Make your orders here</h1>
     <form action="" method="post">
         {% csrf_token %}
+        {{note}}
         {{ orderform}}
         <input type="submit" name="Submit" >
     </form>
