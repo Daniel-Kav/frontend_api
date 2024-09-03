@@ -17,8 +17,9 @@
     </form>
 
     <p class="my-3">Want More Pizzas ?</p>
-    <form action="">
-        {{ multiple_form }}
+    <form action="{% url 'pizzas' %}">
+        {{ multi_form }}
+        <input type="submit" value="Get Pizzas" class="btn btn-primary">
     </form>
 
     <a href="{%url 'home' %}" class="btn btn-primary my-5 mx-5">Go back</a>
