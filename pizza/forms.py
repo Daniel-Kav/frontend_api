@@ -13,4 +13,4 @@ class PizzaForm(forms.ModelForm):
         fields = ['topping1','topping2','size']
 
 class MultiplePizzaForm(forms.Form):
-    number = forms.ImageField(min_value=2 , max_value=6)
+    number = forms.IntegerField(min_value = 2, max_value= 5)
