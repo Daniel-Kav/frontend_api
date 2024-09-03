@@ -9,8 +9,9 @@
 </head>
 <body>
     <h1>Make your orders here</h1>
-    {% if created_pizza_pk%}
-        <a href="{% url 'edit_order' created_Pizza_pk % }" class="btn btn-primary">Edit Your Order</a>
+    
+    {% if created_pizza_pk %}
+    <a href="{% url 'edit_order' created_pizza_pk %}" class="btn btn-primary">Edit Order</a>
     {% endif %}
 
     <form action="" method="post">
