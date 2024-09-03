@@ -9,6 +9,10 @@
 </head>
 <body>
     <h1>Make your orders here</h1>
+    {% if created_pizza_pk%}
+        <a href="{% url 'edit_order' created_Pizza_pk %}">Edit Your Order</a>
+    {% endif %}
+
     <form action="" method="post">
         {% csrf_token %}
         {{note}}
