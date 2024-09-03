@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .forms import PizzaForm, MultiplePizzaForm
 from django.forms import formset_factory
+from .models import Pizza
 # Create your views here.
 def home(request):
     return render(request , 'pizza/home.html')
@@ -9,10 +10,11 @@ def order(request):
     multi_form = MultiplePizzaForm()
     if request.method == 'POST':
         form_data = PizzaForm(request.POST)
-        form_data.save()
+        created_pizza = form_data.save()
+        created_pizza_pk = created_pizza.id
         if form_data.is_valid():
             note = "Thanks for ordering. Your %s %s %s pizza order is enroute." % (form_data.cleaned_data['size'], form_data.cleaned_data['topping1'], form_data.cleaned_data['topping2'])
-            return   render(request , 'pizza/order.html', {'orderform':PizzaForm(), "note" : note, "multi_form" :multi_form})
+            return   render(request , 'pizza/order.html', {'orderform':PizzaForm(), "note" : note, "multi_form" :multi_form, 'created_pizza_pk':created_pizza_pk})
     else:
         return   render(request , 'pizza/order.html', {'orderform':PizzaForm(), 'multi_form':multi_form})
     
