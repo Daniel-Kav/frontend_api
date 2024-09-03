@@ -32,3 +32,5 @@ def pizzas(self, request):
         else:
             note = 'Pizzas have not been Created!'
         return render(request, 'pizza/pizzas.html',{'note':note, 'formset':formset})
+    else:
+        return render(request, 'pizza/pizzas.html',{'formset':formset})
