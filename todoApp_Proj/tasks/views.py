@@ -5,11 +5,10 @@ from .forms import TaskForm
 # Create your views here.
 def TaskList(request):
     tasks = Task.objects.all()
-    form  = TaskForm()
-    if  request.method == 'POST':
+    form = TaskForm()
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
         if form.is_valid():
-            form =  TaskForm(request.POST)
             form.save()
             return redirect('task_list')
-
-    return render(request, 'tasks/task_list.html',{'tasks': tasks, 'form': form })
+    return render(request, 'tasks/task_list.html', {'tasks': tasks, 'form': form})
