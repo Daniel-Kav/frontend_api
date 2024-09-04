@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 from .models import Task
-from .forms import TaskForm
+from .forms import TaskForm,RegistrationForm
 
 # Create your views here.
 @login_required
@@ -36,3 +37,14 @@ def TaskDelete(request, pk):
         task.delete()
         return redirect('task_list')
     return render(request, 'tasks/task_delete_confirm.html', {'task': task})
+
+def Register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('task_list')
+        else:
+            form = RegistrationForm()
+        return render(request, 'tasks/register.html', {'form': form})
