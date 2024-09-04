@@ -10,11 +10,11 @@
 
     <form action="" method="post">
         {% csrf_token %}
-        {{ form }}
+        {{ form.as_p }}
         <input type="submit" value="Add Task">
     </form>
     {% for task in tasks %}
-        <li>{{ task}}</li>
+        <li>{{ task.title }}</li>
     {% endfor %}
 
 </body>
