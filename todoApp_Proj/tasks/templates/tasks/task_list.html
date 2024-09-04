@@ -20,7 +20,7 @@
             {% for task in tasks %}
             <li class="list-group-item">
                 {{ task.title }}
-                <a href="{% url 'task_update' task.id %}" class="btn btn-sm btn-outline-secondary float-end">
+                <a href="{% url 'task_update' task.id %}" class="btn btn-sm btn-outline-primary float-end">
                     {% if task.completed %}
                     Mark as Incomplete
                     {% else %}
