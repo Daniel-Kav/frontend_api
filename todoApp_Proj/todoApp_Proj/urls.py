@@ -21,4 +21,6 @@ from tasks import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.TaskList, name='task_list'),
+    path('edit/<int:pk>', views.TaskUpdate, name='task_update'),
+
 ]
