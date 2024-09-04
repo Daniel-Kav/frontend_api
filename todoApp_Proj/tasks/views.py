@@ -45,6 +45,6 @@ def Register(request):
             user = form.save()
             login(request, user)
             return redirect('task_list')
-        else:
-            form = RegistrationForm()
-        return render(request, 'tasks/register.html', {'form': form})
+    else:
+        form = RegistrationForm()
+    return render(request, 'tasks/register.html', {'form': form})
