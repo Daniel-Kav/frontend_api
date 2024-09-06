@@ -16,6 +16,17 @@ def BlogDetails(request, pk):
     blog = Blog.objects.get(pk=pk)
     return render(request, 'blog/blog_details.html', {'blog':blog})
 
+def BlogUpdate(request, pk):
+    blog = Blog.objects.get(pk=pk)
+    form = BlogForm()
+    if request.method == 'POST':
+        form = BlogForm(request.POST, instance=blog)
+        if form.is_valid():
+            form.save()
+            return redirect('blog-list')
+    return render(request, 'blog/blog_update.html', {'form':form, 'blog':blog})
+
+
 def BlogDelete(request,pk):
     blog = Blog.objects.get(pk=pk)
     if request.method == 'POST' :
