@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Blog,Post, Comment
 from .forms import BlogForm,CommentForm, PostForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def BlogListView(request):
@@ -52,3 +53,16 @@ def post_detail(request,pk):
         else:
             comment_form = CommentForm()
     return render(request, 'blog/post_detail.html',{'comments': comments, 'post': post})
+
+@login_required
+def post_new(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('post_detail', pk= post.pk)
+    else:
+        form = PostForm()
+    return render(request, 'blog/post_edit.html', {'form': form})
