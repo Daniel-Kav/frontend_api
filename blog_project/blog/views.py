@@ -18,7 +18,7 @@ def BlogDetails(request, pk):
 
 def BlogUpdate(request, pk):
     blog = Blog.objects.get(pk=pk)
-    form = BlogForm()
+    form = BlogForm(request.POST)
     if request.method == 'POST':
         form = BlogForm(request.POST, instance=blog)
         if form.is_valid():
