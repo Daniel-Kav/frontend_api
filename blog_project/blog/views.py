@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Blog
+from .models import Blog,Post, Comment
 from .forms import BlogForm
 
 # Create your views here.
@@ -33,3 +33,7 @@ def BlogDelete(request,pk):
         blog.delete()
         return redirect('blog-list')
     return render(request, 'blog/blog_delete_confirmation.html', {'blog': blog})
+
+def post_list(request):
+    posts = Post.objects.all().order_by('created_at')
+    return render(request, 'blog/blog_list.html', {'posts': posts})
