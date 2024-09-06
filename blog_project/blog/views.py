@@ -1,6 +1,6 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .models import Blog,Post, Comment
-from .forms import BlogForm
+from .forms import BlogForm,CommentForm, PostForm
 
 # Create your views here.
 def BlogListView(request):
@@ -37,3 +37,18 @@ def BlogDelete(request,pk):
 def post_list(request):
     posts = Post.objects.all().order_by('created_at')
     return render(request, 'blog/blog_list.html', {'posts': posts})
+
+def post_detail(request,pk):
+    post = get_object_or_404(Post, pk=pk)
+    comments = post.comments.all()
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.author = request.user
+            comment.post = post
+            comment.save()
+            return redirect('post_detail', pk= post.pk)
+        else:
+            comment_form = CommentForm()
+    return render(request, 'blog/post_detail.html',{'comments': comments, 'post': post})
