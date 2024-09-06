@@ -11,8 +11,11 @@
     {% for blog in bloglist %}
     <li class="list-group-item d-flex justify-content-between align-items-center">
         {{ blog.title }}
-        <a href="{% url 'blog_details' blog.id %}" class=" btn btn-outline-primary">View Blog</a>
-        <a href="{% url 'blog_delete' blog.id %}" class=" btn btn-outline-danger">Delete Blog</a>
+        <div class="list-group">
+            <a href="{% url 'blog_details' blog.id %}" class=" btn btn-outline-primary">View Blog</a>
+            <a href="{% url 'blog_update' blog.id %}" class=" btn btn-outline-secondary">Update Blog</a>
+            <a href="{% url 'blog_delete' blog.id %}" class=" btn btn-outline-danger">Delete Blog</a>
+        </div>
     </li>
     {% endfor %}
 </ul>
