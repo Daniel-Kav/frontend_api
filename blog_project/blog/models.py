@@ -33,7 +33,7 @@ class Comment(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500 , blank=True)
-    location = models.CharField(max_length=100, max_length = 100)
+    location = models.CharField(max_length=100, blank=True)
     date_of_birth = models.DateField(null=True, blank=True)
 
     def __str__(self):
