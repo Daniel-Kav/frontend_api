@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Blog,Post, Comment
-from .forms import BlogForm,CommentForm, PostForm, RegistrationForm
+from .forms import BlogForm,CommentForm, PostForm, RegistrationForm,ProfileForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
+from django.contrib.auth.models import User
 
 # Create your views here.
 def BlogListView(request):
@@ -99,3 +100,20 @@ def register_user(request):
     else:
         form = RegistrationForm()
     return render(request, 'blog/register.html', {'form': form})
+
+@login_required
+def view_profile(request, username):
+    user = get_object_or_404(User, username=username )
+    return render(request,'blog/profile.html', {'user':user })
+
+
+@login_required
+def edit_profile(request, username):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance= request.user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect('view_profile', username= request.user.username)
+    else:
+        form = ProfileForm(instance= request.user.profile)
+    return render(request, 'blog/edit_profile.html',{'form':form})
