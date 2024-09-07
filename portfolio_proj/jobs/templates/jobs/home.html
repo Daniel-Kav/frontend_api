@@ -1,11 +1,4 @@
 
-    <h1>Portfolio home</h1>
-    {% for job in jobs %}
-    <li>{{job.summary}}</li>
-    {{ job.image}}
-    {% endfor %}
-
-
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 {% load static %}
@@ -50,13 +43,7 @@
                     {% for job in jobs %}
                     <div class="col">
                         <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
-                                    dy=".3em">Thumbnail</text>
-                            </svg>
+                            <img src="{{ job.image.url }}" alt="">
                             <div class="card-body">
                                 <p class="card-text">{{ job.summary}}</p>
                                 <div class="d-flex justify-content-between align-items-center">
@@ -68,8 +55,8 @@
                                 </div>
                             </div>
                         </div>
-                        {% endfor %}
                     </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
