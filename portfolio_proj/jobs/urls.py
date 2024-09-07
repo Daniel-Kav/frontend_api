@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('',views.home, name='home'),
-    path('jobs/<int:job_id>',views.job_detail, name='detail'),
+    path('jobs/<int:pk>',views.job_detail, name='detail'),
 ] 
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

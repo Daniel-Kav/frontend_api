@@ -6,7 +6,7 @@ def home(request):
     jobs = Job.objects.all()
     return render(request, 'jobs/home.html', {'jobs': jobs})
 
-def job_detail(request, job_id):
-    job = get_object_or_404(Job , pk = job_id)
+def job_detail(request, pk):
+    job = get_object_or_404(Job , pk = pk)
     return render(request, 'jobs/detail.html', {'job': job})
 
