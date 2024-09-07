@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Blog,Post, Comment
-from .forms import BlogForm,CommentForm, PostForm
+from .forms import BlogForm,CommentForm, PostForm, RegistrationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 
 # Create your views here.
 def BlogListView(request):
@@ -87,3 +88,14 @@ def post_delete(request, pk):
     if request.user == post.author:
         post.delete()
     return redirect('post_list')
+
+def register_user(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('post_list')
+    else:
+        form = RegistrationForm()
+    return render(request, 'blog/register.html', {'form': form})
