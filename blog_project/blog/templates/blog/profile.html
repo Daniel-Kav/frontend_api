@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ user.username }}'s Profile</h2>
+<p><strong>Bio:</strong> {{ user.profile.bio }}</p>
+<p><strong>Location:</strong> {{ user.profile.location }}</p>
+<p><strong>Birth Date:</strong> {{ user.profile.birth_date }}</p>
+
+<h3>Posts by {{ user.username }}</h3>
+<ul>
+    {% for post in user.post_set.all %}
+    <li><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></li>
+    {% endfor %}
+</ul>
+
+{% if user == request.user %}
+<a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+{% endif %}
+{% endblock %}
