@@ -9,6 +9,13 @@
     <h1>
         this is a  sample django app homepage
     </h1>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <input type="button" value="submit">
+    </form>
+
     {% for sample in samples %}
         <li> {{sample.title}}</li>
     {% endfor %}

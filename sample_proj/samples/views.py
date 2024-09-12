@@ -7,13 +7,11 @@ def home_view(request):
     samples = Sample.objects.all()
 
     if request.method == 'POST':
-        form = SampleForm(request.POST)
+        form = SampleForm()
         if form.is_valid():
-            form.save()
-            return redirect('/')
+            form = form.save()
+            return render(request, 'samples/home.html', {'form': form})
+    return render(request, 'samples/home.html',{"samples":samples})
 
-
-
-    return render(request, 'samples/home.html',{"samples":samples, "form":form})
 
 
