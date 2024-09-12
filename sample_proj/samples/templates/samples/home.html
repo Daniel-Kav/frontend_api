@@ -9,5 +9,8 @@
     <h1>
         this is a  sample django app homepage
     </h1>
+    {% for sample in samples %}
+        <li> {{sample.title}}</li>
+    {% endfor %}
 </body>
 </html>
