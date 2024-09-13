@@ -6,7 +6,7 @@
 
     {% for sample in samples %}
         <li> {{sample.title}}</li>
-        <a href="{%url '%}"></a>
+        <a href="{%url 'edit_sample' sample.id %}">edit</a>
     {% endfor %}
     <a href="{% url 'new_sample' %}">add new sample</a>
 </body>

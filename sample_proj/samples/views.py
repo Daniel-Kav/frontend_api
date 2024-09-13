@@ -23,7 +23,7 @@ def edit_sample(request, pk):
         form = SampleForm(request.POST, instance=sample)
         if form.is_valid():
             form.save()
-            redirect('/')
+            return redirect('/')
     else:
         form = SampleForm(instance=sample)
     return render(request,'samples/edit_sample.html',{'form':form, 'sample':sample})
