@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .models import Sample
 from .forms import SampleForm
 
@@ -16,6 +16,17 @@ def new_sample_view(request):
     else:
         form = SampleForm()
     return render(request, 'samples/new_sample.html', {'form': form})
+
+def edit_sample(request, pk):
+    sample = get_object_or_404(Sample, pk=pk) 
+    if request.method =='POST':
+        form = SampleForm(request.POST, instance=sample)
+        if form.is_valid():
+            form.save()
+            redirect('/')
+    else:
+        form = SampleForm(instance=sample)
+    return render(request,'samples/edit_sample.html',{'form':form, 'sample':sample})
 
 
 
