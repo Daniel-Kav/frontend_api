@@ -33,5 +33,5 @@ def delete_sample(request, pk):
     if request.method == 'POST':
         sample.delete()
         return redirect('/')
-    return render(request, 'samples/home.html',{'sample':sample})
+    return render(request, 'samples/delete.html',{'sample':sample})
 
