@@ -28,5 +28,10 @@ def edit_sample(request, pk):
         form = SampleForm(instance=sample)
     return render(request,'samples/edit_sample.html',{'form':form, 'sample':sample})
 
-
+def delete_sample(request, pk):
+    sample = get_object_or_404(Sample,pk=pk)
+    if request.method == 'POST':
+        sample.delete()
+        return redirect('/')
+    return render(request, 'samples/delete.html',{'sample':sample})
 
