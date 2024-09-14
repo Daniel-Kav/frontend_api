@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-def darshboard(request):
+def dashboard(request):
     incomes = Income.objects.filter(user = request.user)
     expenses = Expense.objects.filter(user = request.user)
     total_expenses = sum(expense.amount for expense in expenses)
