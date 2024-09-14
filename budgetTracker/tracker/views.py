@@ -21,4 +21,10 @@ def darshboard(request):
     }
 
     return render(request, 'tracker/dashboard.html')
+
+def add_income(request):
+    pass
+
+def add_expense(request):
+    pass
     
