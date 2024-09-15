@@ -20,10 +20,20 @@ def dashboard(request):
         'total_income': total_income,
     }
 
-    return render(request, 'tracker/dashboard.html')
+    return render(request, 'tracker/darshboard.html')
 
 def add_income(request):
-    pass
+    if request.method == 'POST':
+        form = IncomeForm(request.POST)
+        if form.is_valid():
+            income = form.save( commit= False )
+            income.user = request.user
+            income.save()
+            return redirect('dashboard')
+    else:
+        form = IncomeForm()
+    return render(request, 'track/add_income.html', {'form': form})
+
 
 def add_expense(request):
     pass
