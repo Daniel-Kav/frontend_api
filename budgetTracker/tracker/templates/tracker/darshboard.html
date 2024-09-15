@@ -20,6 +20,7 @@
                 {% for expense in expenses %}
                 <li class="list-group-item">
                     {{ expense.category }} - {{ expense.description }} - ${{ expense.amount }}
+                    <a href="{%url 'edit_expense' expense.id %}" class="btn btn-danger mx-4"> EDIT</a>
                     <a href="{%url 'del_expense' expense.id %}" class="btn btn-danger mx-4"> DEL</a>
                 </li>
                 {% endfor %}
