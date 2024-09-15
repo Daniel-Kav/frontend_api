@@ -9,6 +9,7 @@
                 {% for income in incomes %}
                 <li class="list-group-item">
                     {{ income.description }} - ${{ income.amount }}
+                    <a href="{%url 'edit_income' income.id %}" class="btn btn-secondary mx-4"> EDIT</a>
                     <a href="{%url 'del_income' income.id %}" class="btn btn-danger"> DEL</a>
                 </li>
                 {% endfor %}
@@ -20,7 +21,7 @@
                 {% for expense in expenses %}
                 <li class="list-group-item">
                     {{ expense.category }} - {{ expense.description }} - ${{ expense.amount }}
-                    <a href="{%url 'edit_expense' expense.id %}" class="btn btn-danger mx-4"> EDIT</a>
+                    <a href="{%url 'edit_expense' expense.id %}" class="btn btn-secondary mx-4"> EDIT</a>
                     <a href="{%url 'del_expense' expense.id %}" class="btn btn-danger mx-4"> DEL</a>
                 </li>
                 {% endfor %}

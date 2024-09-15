@@ -72,7 +72,7 @@ def edit_expense(request, pk):
     return render(request, 'tracker/edit_expense.html',{'form':form })
 
 def edit_income(request, pk):
-    income = get_object_or_404(Expense, pk=pk)
+    income = get_object_or_404(Income, pk=pk)
     if request.method == 'POST':
         form = IncomeForm(request.POST, instance=income)
         if form.is_valid():
