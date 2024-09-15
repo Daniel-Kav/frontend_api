@@ -8,4 +8,5 @@ urlpatterns = [
     path('del-income/<int:pk>', views.del_income, name='del_income'),
     path('del-expense/<int:pk>', views.del_expense, name='del_expense'),
     path('edit-expense/<int:pk>', views.edit_expense, name='edit_expense'),
+    path('edit-income/<int:pk>', views.edit_income, name='edit_income'),
 ]
