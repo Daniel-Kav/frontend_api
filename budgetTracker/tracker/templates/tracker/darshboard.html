@@ -20,15 +20,16 @@
                 {% for expense in expenses %}
                 <li class="list-group-item">
                     {{ expense.category }} - {{ expense.description }} - ${{ expense.amount }}
+                    <a href="{%url 'del_expense' expense.id %}" class="btn btn-danger mx-4"> DEL</a>
                 </li>
                 {% endfor %}
             </ul>
         </div>
         <div class="col-md-4">
             <h3>Summary</h3>
-            <p>Total Income: ${{ total_income }}</p>
-            <p>Total Expense: ${{ total_expenses }}</p>
-            <p>Balance: ${{ balance }}</p>
+            <h5>Total Income: ${{ total_income }}</h5>
+            <h5>Total Expense: ${{ total_expenses }}</h5>
+            <h5>Balance: ${{ balance }}</h5>
         </div>
     </div>
 </div>
