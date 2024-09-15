@@ -15,12 +15,11 @@ def dashboard(request):
         'incomes': incomes,
         'balance': balance,
         'expenses': expenses,
-        'incomes': incomes,
         'total_expenses': total_expenses,
         'total_income': total_income,
     }
 
-    return render(request, 'tracker/darshboard.html')
+    return render(request, 'tracker/darshboard.html', context)
 
 def add_income(request):
     if request.method == 'POST':
