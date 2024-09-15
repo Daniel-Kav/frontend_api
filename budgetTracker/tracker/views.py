@@ -53,3 +53,9 @@ def del_income(request, pk):
         return redirect('dashboard')
     return render(request,'tracker/del_income.html',{'income':income})
     
+def del_expense(request, pk):
+    expense = get_object_or_404(Expense, pk=pk)
+    if request.method == 'POST':
+        expense.delete()
+        return redirect('dashboard')
+    return render(request,'tracker/del_expense.html',{'expense':expense})
