@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .forms import ExpenseForm,IncomeForm
 from .models import Expense,Category,Income
 from django.contrib.auth.decorators import login_required
@@ -45,4 +45,11 @@ def add_expense(request):
     else:
         form = ExpenseForm()
     return render(request, 'tracker/add_expense.html',{'form': form})
+
+def del_income(request, pk):
+    income = get_object_or_404(Income, pk=pk)
+    if request.method == 'POST':
+        income.delete()
+        return redirect('dashboard')
+    return render(request,'tracker/del_income.html',{'income':income})
     
