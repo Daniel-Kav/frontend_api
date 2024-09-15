@@ -32,9 +32,18 @@ def add_income(request):
             return redirect('dashboard')
     else:
         form = IncomeForm()
-    return render(request, 'track/add_income.html', {'form': form})
+    return render(request, 'tracker/add_income.html', {'form': form})
 
 
 def add_expense(request):
-    pass
+    if request.method == 'POST':
+        form = ExpenseForm(request.POST)
+        if form.is_valid():
+            expense = form.save( commit=False )
+            expense.user = request.user
+            expense.save()
+            return redirect('dashboard')
+    else:
+        form = ExpenseForm()
+    return render(request, 'tracker/add_expense.html',{'form': form})
     
