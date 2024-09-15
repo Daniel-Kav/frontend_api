@@ -9,6 +9,7 @@
                 {% for income in incomes %}
                 <li class="list-group-item">
                     {{ income.description }} - ${{ income.amount }}
+                    <a href="{%url 'del_income' income.id %}" class="btn btn-danger"> DEL</a>
                 </li>
                 {% endfor %}
             </ul>
