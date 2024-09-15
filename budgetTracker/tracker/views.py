@@ -59,3 +59,14 @@ def del_expense(request, pk):
         expense.delete()
         return redirect('dashboard')
     return render(request,'tracker/del_expense.html',{'expense':expense})
+
+def edit_expense(request, pk):
+    expense = get_object_or_404(Expense, pk=pk , user = request.user)
+    if request.method == 'POST':
+        form = ExpenseForm(request.POST, instance=expense)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = ExpenseForm(instance=expense)
+    return render(request, 'tracker/edit_expense.html',{'form':form })
