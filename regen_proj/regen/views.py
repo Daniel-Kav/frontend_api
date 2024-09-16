@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .models import Expense,Income
 from .forms import IncomeForm,ExpenseForm
 from django.contrib.auth.decorators import login_required
@@ -49,10 +49,26 @@ def add_expenses(request):
 
 
 def edit_income(request, pk ):
-    pass
+    income = get_object_or_404(Income, pk=pk)
+    if request.method == 'POST':
+        form = IncomeForm(request.POST , instance=income)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = IncomeForm(instance= income)
+    return render(request, 'regen/edit_income.html',{'form':form})
 
 def edit_expenses(request, pk):
-    pass
+    expense = get_object_or_404(Expense, pk=pk)
+    if request.method == 'POST':
+        form = ExpenseForm(request.POST,instance= expense,)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = ExpenseForm(instance=expense)
+    return render(request, 'regen/edit_expense.html',{'form':form})
 
 def del_income(request, pk):
     pass
