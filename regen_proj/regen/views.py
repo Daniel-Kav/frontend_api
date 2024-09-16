@@ -21,5 +21,6 @@ def dashboard(request):
 def add_income(request):
     pass
 
+
 def add_expenses(request):
     pass
