@@ -10,7 +10,7 @@ class Category(models.Model):
         return self.name
 
 class Expense(models.Model):
-    Category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField(max_length=400)
     amount = models.DecimalField(max_digits=10,decimal_places=2)
@@ -19,7 +19,7 @@ class Expense(models.Model):
         return self.description
 
 class Income(models.Model):
-    User = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField(max_length=200)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
 
