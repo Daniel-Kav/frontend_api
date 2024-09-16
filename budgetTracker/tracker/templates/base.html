@@ -12,12 +12,24 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Budget Tracker</a>
         <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link btn btn-outline-secondary" href="{% url 'add_income' %}">Add Income</a>
+                <a class="nav-link" href="{% url 'add_income' %}">Add Income</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'add_expense' %}">Add Expense</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+            {% endif %}
         </ul>
     </nav>
     <div class="container">

@@ -12,5 +12,5 @@ urlpatterns = [
     path('edit-income/<int:pk>', views.edit_income, name='edit_income'),
     path('register/', views.register, name='register'),
     path('login/', LoginView.as_view(template_name='tracker/login.html'), name='login'),
-    path('login/', LogoutView.as_view(), name='login'),
+    path('login/', LogoutView.as_view(), name='logout'),
 ]
