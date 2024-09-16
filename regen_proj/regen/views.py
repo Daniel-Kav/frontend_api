@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Expense,Income
-from .forms import IncomeForm
+from .forms import IncomeForm,ExpenseForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -35,7 +35,18 @@ def add_income(request):
 
 
 def add_expenses(request):
-    pass
+    if request.method == 'POST':
+        form = ExpenseForm(request.POST)
+        if form.is_valid():
+            expense = form.save(commit=False)
+            expense.user = request.user
+            expense.save()
+            return redirect('dashboard')
+    else:
+        form = ExpenseForm()
+    return render(request, 'regen/add_expense.html', {'form': form})
+
+
 
 def edit_income(request, pk ):
     pass
