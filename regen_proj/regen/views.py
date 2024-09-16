@@ -71,6 +71,16 @@ def edit_expenses(request, pk):
     return render(request, 'regen/edit_expense.html',{'form':form})
 
 def del_income(request, pk):
-    pass
+    income = get_object_or_404(Income, pk=pk)
+    if request.method =='POST':
+        income.delete()
+        return redirect('dashboard')
+    return render(request, 'regen/del_income.html',{'income':income})
+
+
 def del_expenses(request, pk):
-    pass
+    expense = get_object_or_404(Expense, pk=pk)
+    if request.method =='POST':
+        expense.delete()
+        return redirect('dashboard')
+    return render(request, 'regen/del_expense.html',{'expense':expense})
