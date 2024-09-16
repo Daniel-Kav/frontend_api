@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from .forms import ExpenseForm,IncomeForm
 from .models import Expense,Category,Income
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 
 
 # Create your views here.
@@ -83,3 +84,13 @@ def edit_income(request, pk):
     else:
         form = IncomeForm(instance=income)
     return render(request, 'tracker/edit_income.html', {'form': form})
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = UserCreationForm()
+    return render(request, 'tracker/register.html', {'form': form})
