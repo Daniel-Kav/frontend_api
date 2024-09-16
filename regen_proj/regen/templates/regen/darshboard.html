@@ -1,37 +1,73 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-5">
-    <h2>Dashboard</h2>
+    <h2 class="text-center mb-4">Dashboard</h2>
     <div class="row">
+        <!-- Income Section -->
         <div class="col-md-4">
-            <h3>Income</h3>
-            <ul class="list-group">
-                {% for income in incomes %}
-                <li class="list-group-item">
-                    {{ income.description }} - ${{ income.amount }}
-                    <a href="{%url 'edit_income' income.id %}" class="btn btn-secondary mx-4"> EDIT</a>
-                    <a href="{%url 'del_income' income.id %}" class="btn btn-danger"> DEL</a>
-                </li>
-                {% endfor %}
-            </ul>
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-success text-white">
+                    <h3>Income</h3>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for income in incomes %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>
+                            <strong>{{ income.description }}</strong> - ${{ income.amount }}
+                        </span>
+                        <span>
+                            <a href="{% url 'edit_income' income.id %}" class="btn btn-sm btn-secondary mx-1">Edit</a>
+                            <a href="{% url 'del_income' income.id %}" class="btn btn-sm btn-danger mx-1">Del</a>
+                        </span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
+
+        <!-- Expenses Section -->
         <div class="col-md-4">
-            <h3>Expenses</h3>
-            <ul class="list-group">
-                {% for expense in expenses %}
-                <li class="list-group-item">
-                    {{ expense.category }} - {{ expense.description }} - ${{ expense.amount }}
-                    <a href="{%url 'edit_expense' expense.id %}" class="btn btn-secondary mx-4"> EDIT</a>
-                    <a href="{%url 'del_expense' expense.id %}" class="btn btn-danger mx-4"> DEL</a>
-                </li>
-                {% endfor %}
-            </ul>
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-danger text-white">
+                    <h3>Expenses</h3>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for expense in expenses %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>
+                            <strong>{{ expense.category }}</strong> - {{ expense.description }} - ${{ expense.amount }}
+                        </span>
+                        <span>
+                            <a href="{% url 'edit_expense' expense.id %}" class="btn btn-sm btn-secondary mx-1">Edit</a>
+                            <a href="{% url 'del_expense' expense.id %}" class="btn btn-sm btn-danger mx-1">Del</a>
+                        </span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
+
+        <!-- Summary Section -->
         <div class="col-md-4">
-            <h3>Summary</h3>
-            <h5>Total Income: ${{ total_income }}</h5>
-            <h5>Total Expense: ${{ total_expenses }}</h5>
-            <h5>Balance: ${{ balance }}</h5>
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-info text-white">
+                    <h3>Summary</h3>
+                </div>
+                <div class="card-body">
+                    <h5 class="mb-3">
+                        <span class="badge bg-success">Total Income:</span>
+                        <span class="float-end">${{ total_income }}</span>
+                    </h5>
+                    <h5 class="mb-3">
+                        <span class="badge bg-danger">Total Expense:</span>
+                        <span class="float-end">${{ total_expenses }}</span>
+                    </h5>
+                    <h5 class="mb-3">
+                        <span class="badge bg-primary">Balance:</span>
+                        <span class="float-end">${{ balance }}</span>
+                    </h5>
+                </div>
+            </div>
         </div>
     </div>
 </div>
