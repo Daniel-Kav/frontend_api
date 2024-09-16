@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+@login_required
 def dashboard(request):
     incomes = Income.objects.filter(user = request.user)
     expenses = Expense.objects.filter(user = request.user)
@@ -21,6 +22,7 @@ def dashboard(request):
 
     return render(request, 'tracker/darshboard.html', context)
 
+@login_required
 def add_income(request):
     if request.method == 'POST':
         form = IncomeForm(request.POST)
@@ -33,7 +35,7 @@ def add_income(request):
         form = IncomeForm()
     return render(request, 'tracker/add_income.html', {'form': form})
 
-
+@login_required
 def add_expense(request):
     if request.method == 'POST':
         form = ExpenseForm(request.POST)
