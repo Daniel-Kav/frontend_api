@@ -49,13 +49,15 @@ def add_expense(request):
         form = ExpenseForm()
     return render(request, 'tracker/add_expense.html',{'form': form})
 
+@login_required
 def del_income(request, pk):
     income = get_object_or_404(Income, pk=pk)
     if request.method == 'POST':
         income.delete()
         return redirect('dashboard')
     return render(request,'tracker/del_income.html',{'income':income})
-    
+
+@login_required    
 def del_expense(request, pk):
     expense = get_object_or_404(Expense, pk=pk)
     if request.method == 'POST':
@@ -63,6 +65,7 @@ def del_expense(request, pk):
         return redirect('dashboard')
     return render(request,'tracker/del_expense.html',{'expense':expense})
 
+@login_required
 def edit_expense(request, pk):
     expense = get_object_or_404(Expense, pk=pk )
     if request.method == 'POST':
@@ -74,6 +77,7 @@ def edit_expense(request, pk):
         form = ExpenseForm(instance=expense)
     return render(request, 'tracker/edit_expense.html',{'form':form })
 
+@login_required
 def edit_income(request, pk):
     income = get_object_or_404(Income, pk=pk)
     if request.method == 'POST':
@@ -84,6 +88,7 @@ def edit_income(request, pk):
     else:
         form = IncomeForm(instance=income)
     return render(request, 'tracker/edit_income.html', {'form': form})
+
 
 def register(request):
     if request.method == 'POST':
