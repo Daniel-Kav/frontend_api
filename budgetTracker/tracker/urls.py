@@ -11,6 +11,6 @@ urlpatterns = [
     path('edit-expense/<int:pk>', views.edit_expense, name='edit_expense'),
     path('edit-income/<int:pk>', views.edit_income, name='edit_income'),
     path('register/', views.register, name='register'),
-    path('login/', views.LoginView.as_view(template_name='tracker/login.html'), name='login'),
-    path('login/', views.LogoutView.as_view(), name='login'),
+    path('login/', LoginView.as_view(template_name='tracker/login.html'), name='login'),
+    path('login/', LogoutView.as_view(), name='login'),
 ]
