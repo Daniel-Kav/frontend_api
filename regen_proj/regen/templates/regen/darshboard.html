@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Dashboard</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Income</h3>
+            <ul class="list-group">
+                {% for income in incomes %}
+                <li class="list-group-item">
+                    {{ income.description }} - ${{ income.amount }}
+                    <a href="{%url 'edit_income' income.id %}" class="btn btn-secondary mx-4"> EDIT</a>
+                    <a href="{%url 'del_income' income.id %}" class="btn btn-danger"> DEL</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h3>Expenses</h3>
+            <ul class="list-group">
+                {% for expense in expenses %}
+                <li class="list-group-item">
+                    {{ expense.category }} - {{ expense.description }} - ${{ expense.amount }}
+                    <a href="{%url 'edit_expense' expense.id %}" class="btn btn-secondary mx-4"> EDIT</a>
+                    <a href="{%url 'del_expense' expense.id %}" class="btn btn-danger mx-4"> DEL</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h3>Summary</h3>
+            <h5>Total Income: ${{ total_income }}</h5>
+            <h5>Total Expense: ${{ total_expenses }}</h5>
+            <h5>Balance: ${{ balance }}</h5>
+        </div>
+    </div>
+</div>
+{% endblock %}
