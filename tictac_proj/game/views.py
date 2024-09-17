@@ -15,3 +15,16 @@ def check_winner(board):
         if board[condition[0]] == board[condition[1]] and board[condition[2]] and board[condition[0]] != [""]:
             return board[condition[0]]
         return None
+
+
+def tic_tac_toe(request):
+    position = int(request.POST.get('position'))
+    player = request.POST.get('player')
+
+    if board[position] == "":
+        board[position] = player
+    
+    winner = check_winner(board)
+    if winner :
+        return render(request, 'game/tac_toe.html',{'winner': winner, 'board': board})
+    return render(request, 'game/tac_toe.html',{'board':board})
