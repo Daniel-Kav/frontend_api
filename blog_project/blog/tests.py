@@ -23,3 +23,4 @@ def test_sigup_authentication(client):
     response = client.get(path ='/register/', follow  = True)
     assert response.status_code == 200
     assert 'Register' in str(response.content)
+
