@@ -18,7 +18,7 @@ def check_winner(board):
 
 
 def tic_tac_toe(request):
-    position = int(request.POST.get('position'))
+    position = int(request.POST.get('position', 0))
     player = request.POST.get('player')
 
     if board[position] == "":
