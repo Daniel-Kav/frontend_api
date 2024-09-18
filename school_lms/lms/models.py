@@ -23,9 +23,18 @@ class Lesson(models.Model):
         return self.title
     
 class Quiz(models.Model):
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='quiz')
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='quizzes')
     question = models.TextField()
     answer = models.CharField(max_length=255)
 
     def __str__(self):
         return self.question
+
+class Enrollment(models.Model):
+    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='enrollments')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='enrollments')
+    progress = models.DecimalField(max_digits=5, decimal_places=2, default= 0)
+
+    def __str__(self):
+        return f"{self.student.username} is enrolled in {self.course.title}."
+
