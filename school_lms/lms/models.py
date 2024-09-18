@@ -16,7 +16,7 @@ class Course(models.Model):
 class Lesson(models.Model):
     course = models.ForeignKey(Course, related_name='lessons', on_delete=models.CASCADE)
     title = models.CharField(max_length= 200)
-    content = models.RichTextField()
+    content = RichTextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
