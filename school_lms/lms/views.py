@@ -12,3 +12,30 @@ def course_details(request, pk):
     course = get_object_or_404(Course, pk=pk)
     lessons = course.lessons.all()
     return render(request, 'lms/course_details.html',{'course':course, 'lessons':lessons})
+
+
+
+from django.views.generic import ListView, DetailView
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
+
+class CourseListView(ListView):
+    model = Course
+    template_name = 'lms/course_list.html'
+    context_object_name = 'courses'
+
+class CourseDetailView(DetailView):
+    model = Course
+    template_name = 'lms/course_details.html'
+    context_object_name = 'course'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['lessons'] = self.object.lessons.all()
+        return context
+
+class CustomLoginView(LoginView):
+    template_name = 'lms/login.html'
+    success_url = reverse_lazy('course_list')
+
+
