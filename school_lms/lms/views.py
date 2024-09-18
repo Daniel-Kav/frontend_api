@@ -19,6 +19,8 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from .forms import CoursesForm, LessonForm
 
 class CourseListView(ListView):
     model = Course
@@ -43,4 +45,34 @@ class RegistrationView(CreateView):
     template_name = 'lms/register.html'
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
+
+class AddCourseView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = Course
+    form_class = CoursesForm
+    template_name = 'lms/add_course.html'
+    success_url = reverse_lazy('course_list')
+
+    def form_valid(self, form):
+        form.instance.teacher = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+class AddLessonView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = Lesson
+    form_class = LessonForm
+    template_name = 'lms/add_lesson.html'
+
+    def form_valid(self, form):
+        course = Course.objects.get(pk=self.kwargs['course_id'])
+        form.instance.course = course
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('course_detail', kwargs={'pk': self.kwargs['course_id']})
+
+    def test_func(self):
+        course = Course.objects.get(pk=self.kwargs['course_id'])
+        return self.request.user == course.teacher
 
