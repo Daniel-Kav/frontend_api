@@ -11,3 +11,7 @@ class QuizForm(forms.ModelForm):
         model = Quiz
         fields = ['question', 'answer']
 
+class CoursesForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = ['title', 'description', 'category']
