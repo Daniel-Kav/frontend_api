@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Welcome to LMS Platform{% endblock %}
+
+{% block extra_css %}
+<style>
+    .jumbotron {
+        background-color: #f8f9fa;
+        border-radius: 15px;
+        padding: 4rem 2rem;
+    }
+    .feature-card {
+        transition: transform 0.3s;
+        height: 100%;
+    }
+    .feature-card:hover {
+        transform: translateY(-5px);
+    }
+    .course-card {
+        transition: box-shadow 0.3s;
+    }
+    .course-card:hover {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .cta-section {
+        background-color: #e9ecef;
+        padding: 4rem 0;
+        margin-top: 3rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-0">
+    <div class="jumbotron text-center my-4">
+        <h1 class="display-4 fw-bold">Welcome to LMS Platform</h1>
+        <p class="lead">Empower your learning journey with our cutting-edge Learning Management System.</p>
+        <hr class="my-4">
+        <p class="mb-4">Explore our courses, engage with expert instructors, and take your skills to the next level.</p>
+        <a class="btn btn-primary btn-lg px-5 py-3" href="{% url 'course_list' %}" role="button">Explore Courses</a>
+    </div>
+
+    <div class="container">
+        <h2 class="text-center mb-5">Why Choose LMS Platform?</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-book-open fa-3x mb-3 text-primary"></i>
+                        <h5 class="card-title">Wide Range of Courses</h5>
+                        <p class="card-text">From programming to arts, find the perfect course to match your interests and career goals.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-chalkboard-teacher fa-3x mb-3 text-primary"></i>
+                        <h5 class="card-title">Expert Instructors</h5>
+                        <p class="card-text">Learn from industry professionals and academics who are passionate about sharing their knowledge.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-clock fa-3x mb-3 text-primary"></i>
+                        <h5 class="card-title">Flexible Learning</h5>
+                        <p class="card-text">Study at your own pace with our user-friendly platform, accessible anytime, anywhere.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-center my-5">Featured Courses</h2>
+        <div class="row">
+            {% for course in featured_courses %}
+                <div class="col-md-4 mb-4">
+                    <div class="card course-card h-100">
+                        <img src="{% static 'images/course-placeholder.jpg' %}" class="card-img-top" alt="{{ course.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ course.title }}</h5>
+                            <p class="card-text">{{ course.description|truncatewords:20 }}</p>
+                        </div>
+                        <div class="card-footer bg-white border-top-0">
+                            <a href="{% url 'course_detail' course.pk %}" class="btn btn-outline-primary btn-block">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-center">No featured courses available at the moment.</p>
+            {% endfor %}
+        </div>
+
+        <div class="text-center my-5">
+            <a href="{% url 'course_list' %}" class="btn btn-lg btn-outline-primary px-5">View All Courses</a>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <div class="container text-center">
+            <h2 class="mb-4">Ready to Start Your Learning Journey?</h2>
+            <p class="lead mb-4">Join thousands of learners who have transformed their careers with LMS Platform.</p>
+            <a href="{% url 'register' %}" class="btn btn-success btn-lg px-5 py-3 me-3">Sign Up Now</a>
+            <a href="{% url 'login' %}" class="btn btn-outline-dark btn-lg px-5 py-3">Log In</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+{% endblock %}
