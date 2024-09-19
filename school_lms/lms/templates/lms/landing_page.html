@@ -1,109 +1,175 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Welcome to LMS Platform{% endblock %}
+{% block title %}Embark on Your Learning Adventure | LMS Platform{% endblock %}
 
 {% block extra_css %}
 <style>
+    body {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
     .jumbotron {
-        background-color: #f8f9fa;
-        border-radius: 15px;
-        padding: 4rem 2rem;
+        background: url('{% static "images/hero-bg.jpg" %}') no-repeat center center;
+        background-size: cover;
+        color: #fff;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        border-radius: 0;
+        padding: 8rem 2rem;
+        position: relative;
+    }
+    .jumbotron::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0,0,0,0.5);
+    }
+    .jumbotron * {
+        position: relative;
     }
     .feature-card {
-        transition: transform 0.3s;
-        height: 100%;
+        transition: all 0.3s ease;
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
     .feature-card:hover {
-        transform: translateY(-5px);
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+    .feature-icon {
+        font-size: 3rem;
+        background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
     .course-card {
-        transition: box-shadow 0.3s;
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
     }
     .course-card:hover {
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
     .cta-section {
-        background-color: #e9ecef;
-        padding: 4rem 0;
-        margin-top: 3rem;
+        background: url('{% static "images/cta-bg.jpg" %}') no-repeat center center;
+        background-size: cover;
+        color: #fff;
+        padding: 6rem 0;
+        position: relative;
+    }
+    .cta-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0,0,0,0.6);
+    }
+    .cta-content {
+        position: relative;
+    }
+    .btn-glow {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+    }
+    .btn-glow:after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: rgba(255,255,255,0.1);
+        transform: rotate(30deg);
+        transition: 0.5s;
+        z-index: -1;
+    }
+    .btn-glow:hover:after {
+        left: -100%;
+        top: -100%;
     }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="container-fluid px-0">
-    <div class="jumbotron text-center my-4">
-        <h1 class="display-4 fw-bold">Welcome to LMS Platform</h1>
-        <p class="lead">Empower your learning journey with our cutting-edge Learning Management System.</p>
-        <hr class="my-4">
-        <p class="mb-4">Explore our courses, engage with expert instructors, and take your skills to the next level.</p>
-        <a class="btn btn-primary btn-lg px-5 py-3" href="{% url 'course_list' %}" role="button">Explore Courses</a>
+    <div class="jumbotron text-center mb-0">
+        <h1 class="display-3 fw-bold mb-4">Unlock Your Potential with LMS Platform</h1>
+        <p class="lead fs-2 mb-5">Embark on a transformative learning journey that will shape your future.</p>
+        <a class="btn btn-primary btn-lg px-5 py-3 btn-glow" href="{% url 'course_list' %}" role="button">Start Your Adventure</a>
     </div>
 
-    <div class="container">
-        <h2 class="text-center mb-5">Why Choose LMS Platform?</h2>
+    <div class="container py-5">
+        <h2 class="text-center mb-5 display-4">Why LMS Platform Stands Out</h2>
         <div class="row">
             <div class="col-md-4 mb-4">
                 <div class="card feature-card h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-book-open fa-3x mb-3 text-primary"></i>
-                        <h5 class="card-title">Wide Range of Courses</h5>
-                        <p class="card-text">From programming to arts, find the perfect course to match your interests and career goals.</p>
+                    <div class="card-body text-center p-5">
+                        <i class="fas fa-book-open feature-icon mb-4"></i>
+                        <h3 class="card-title h4 mb-3">Diverse Course Catalog</h3>
+                        <p class="card-text">Explore a world of knowledge with our extensive range of courses, tailored to ignite your passion and fuel your career aspirations.</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="card feature-card h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-chalkboard-teacher fa-3x mb-3 text-primary"></i>
-                        <h5 class="card-title">Expert Instructors</h5>
-                        <p class="card-text">Learn from industry professionals and academics who are passionate about sharing their knowledge.</p>
+                    <div class="card-body text-center p-5">
+                        <i class="fas fa-chalkboard-teacher feature-icon mb-4"></i>
+                        <h3 class="card-title h4 mb-3">World-Class Instructors</h3>
+                        <p class="card-text">Learn from industry titans and academic luminaries who are dedicated to nurturing the next generation of innovators and leaders.</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="card feature-card h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-clock fa-3x mb-3 text-primary"></i>
-                        <h5 class="card-title">Flexible Learning</h5>
-                        <p class="card-text">Study at your own pace with our user-friendly platform, accessible anytime, anywhere.</p>
+                    <div class="card-body text-center p-5">
+                        <i class="fas fa-clock feature-icon mb-4"></i>
+                        <h3 class="card-title h4 mb-3">Learn at Your Pace</h3>
+                        <p class="card-text">Our flexible platform adapts to your lifestyle, allowing you to learn anytime, anywhere, and progress at a rhythm that suits you best.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <h2 class="text-center my-5">Featured Courses</h2>
+        <h2 class="text-center my-5 display-4">Featured Learning Experiences</h2>
         <div class="row">
             {% for course in featured_courses %}
                 <div class="col-md-4 mb-4">
                     <div class="card course-card h-100">
                         <img src="{% static 'images/course-placeholder.jpg' %}" class="card-img-top" alt="{{ course.title }}">
                         <div class="card-body">
-                            <h5 class="card-title">{{ course.title }}</h5>
+                            <h3 class="card-title h5">{{ course.title }}</h3>
                             <p class="card-text">{{ course.description|truncatewords:20 }}</p>
                         </div>
-                        <div class="card-footer bg-white border-top-0">
-                            <a href="{% url 'course_detail' course.pk %}" class="btn btn-outline-primary btn-block">Learn More</a>
+                        <div class="card-footer bg-white border-top-0 text-center">
+                            <a href="{% url 'course_detail' course.pk %}" class="btn btn-outline-primary btn-block">Discover More</a>
                         </div>
                     </div>
                 </div>
             {% empty %}
-                <p class="text-center">No featured courses available at the moment.</p>
+                <p class="text-center fs-5">Exciting new courses coming soon! Stay tuned for updates.</p>
             {% endfor %}
         </div>
 
         <div class="text-center my-5">
-            <a href="{% url 'course_list' %}" class="btn btn-lg btn-outline-primary px-5">View All Courses</a>
+            <a href="{% url 'course_list' %}" class="btn btn-lg btn-outline-primary px-5 py-3">Explore All Courses</a>
         </div>
     </div>
 
     <div class="cta-section">
-        <div class="container text-center">
-            <h2 class="mb-4">Ready to Start Your Learning Journey?</h2>
-            <p class="lead mb-4">Join thousands of learners who have transformed their careers with LMS Platform.</p>
-            <a href="{% url 'register' %}" class="btn btn-success btn-lg px-5 py-3 me-3">Sign Up Now</a>
-            <a href="{% url 'login' %}" class="btn btn-outline-dark btn-lg px-5 py-3">Log In</a>
+        <div class="container text-center cta-content">
+            <h2 class="mb-4 display-4">Ready to Transform Your Future?</h2>
+            <p class="lead mb-5 fs-3">Join a community of lifelong learners and unlock endless possibilities with LMS Platform.</p>
+            <a href="{% url 'register' %}" class="btn btn-success btn-lg px-5 py-3 me-3 btn-glow">Enroll Now</a>
+            <a href="{% url 'login' %}" class="btn btn-outline-light btn-lg px-5 py-3 btn-glow">Access Your Account</a>
         </div>
     </div>
 </div>
@@ -111,4 +177,26 @@
 
 {% block extra_js %}
 <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+<script>
+    // Add some dynamic elements
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animate feature cards on scroll
+        const featureCards = document.querySelectorAll('.feature-card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        featureCards.forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s, transform 0.5s';
+            observer.observe(card);
+        });
+    });
+</script>
 {% endblock %}
