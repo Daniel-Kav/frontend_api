@@ -15,12 +15,20 @@ from .models import Course,Lesson,Quiz, Enrollment
 
 
 
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import CoursesForm, LessonForm
+
+class LandingPageView(TemplateView):
+    template_name = 'lms/landing_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['featured_courses'] = Course.objects.all()[:3]  # Get 3 featured courses
+        return context
 
 class CourseListView(ListView):
     model = Course
@@ -75,4 +83,3 @@ class AddLessonView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     def test_func(self):
         course = Course.objects.get(pk=self.kwargs['course_id'])
         return self.request.user == course.teacher
-
