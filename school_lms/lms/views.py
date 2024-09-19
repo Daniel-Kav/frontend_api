@@ -21,6 +21,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import CoursesForm, LessonForm
+from django.shortcuts import redirect
 
 class LandingPageView(TemplateView):
     template_name = 'lms/landing_page.html'
@@ -47,7 +48,11 @@ class CourseDetailView(DetailView):
 
 class CustomLoginView(LoginView):
     template_name = 'lms/login.html'
-    success_url = reverse_lazy('course_list')
+    
+    def get_success_url(self):
+        if self.request.user.is_staff:
+            return reverse_lazy('teacher_dashboard')
+        return reverse_lazy('course_list')
 
 class RegistrationView(CreateView):
     template_name = 'lms/register.html'
@@ -58,7 +63,7 @@ class AddCourseView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Course
     form_class = CoursesForm
     template_name = 'lms/add_course.html'
-    success_url = reverse_lazy('course_list')
+    success_url = reverse_lazy('teacher_dashboard')
 
     def form_valid(self, form):
         form.instance.teacher = self.request.user
@@ -83,3 +88,14 @@ class AddLessonView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     def test_func(self):
         course = Course.objects.get(pk=self.kwargs['course_id'])
         return self.request.user == course.teacher
+
+class TeacherDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    template_name = 'lms/teacher_dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['courses'] = Course.objects.filter(teacher=self.request.user)
+        return context
+
+    def test_func(self):
+        return self.request.user.is_staff
