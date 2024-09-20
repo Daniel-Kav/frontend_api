@@ -18,6 +18,7 @@ from .models import Course,Lesson,Quiz, Enrollment
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.contrib.auth.views import LoginView,LogoutView
 from django.urls import reverse_lazy
+from django.contrib.auth import logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import CoursesForm, LessonForm
@@ -100,9 +101,7 @@ class TeacherDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView
     def test_func(self):
         return self.request.user.is_staff
 
-class CustomLogoutView(LogoutView):
-    next_page = reverse_lazy('landing_page')
 
-    def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
-        return response
+def user_logout(request):
+    logout(request)
+    return redirect(reverse_lazy('landing_page'))
