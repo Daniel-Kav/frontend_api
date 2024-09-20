@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ course.title }} | LMS Platform{% endblock %}
+
+{% block extra_css %}
+<style>
+    .course-header {
+        background-color: #f8f9fa;
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+    }
+    .course-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+    }
+    .course-description {
+        font-size: 1.1rem;
+        color: #666;
+    }
+    .lesson-list {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    .lesson-item {
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        transition: all 0.3s ease;
+    }
+    .lesson-item:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .lesson-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #007bff;
+    }
+    .start-course-btn {
+        font-size: 1.2rem;
+        padding: 0.75rem 2rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="course-header">
+    <div class="container">
+        <h1 class="course-title">{{ course.title }}</h1>
+        <p class="course-description">{{ course.description }}</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="mb-4">Lessons</h2>
+            <ul class="lesson-list">
+                {% for lesson in lessons %}
+                    <li class="lesson-item">
+                        <h3 class="lesson-title">{{ lesson.title }}</h3>
+                        <p>{{ lesson.description }}</p>
+                    </li>
+                {% empty %}
+                    <li>No lessons available for this course yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Course Information</h5>
+                    <p class="card-text"><strong>Teacher:</strong> {{ course.teacher.get_full_name }}</p>
+                    <p class="card-text"><strong>Duration:</strong> {{ course.duration }} weeks</p>
+                    <a href="#" class="btn btn-primary btn-block start-course-btn">Start Course</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a href="{% url 'course_list' %}" class="btn btn-secondary">Back to Courses</a>
+    </div>
+</div>
+{% endblock %}
