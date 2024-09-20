@@ -8,6 +8,7 @@ urlpatterns = [
     path('login/', views.CustomLoginView.as_view(), name='login'),
     path('register/', views.RegistrationView.as_view(), name='register'),
     path('add-course/', views.AddCourseView.as_view(), name='add_course'),
+    path('lesson/<int:pk>', view)
     path('courses/<int:course_id>/add-lesson/', views.AddLessonView.as_view(), name='add_lesson'),
     path('dashboard/', views.TeacherDashboardView.as_view(), name='teacher_dashboard'),
     path('logout/', views.user_logout, name='logout'),
