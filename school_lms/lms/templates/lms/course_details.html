@@ -43,6 +43,9 @@
         font-size: 1.2rem;
         padding: 0.75rem 2rem;
     }
+    .add-lesson-btn {
+        margin-top: 1rem;
+    }
 </style>
 {% endblock %}
 
@@ -68,6 +71,7 @@
                     <li>No lessons available for this course yet.</li>
                 {% endfor %}
             </ul>
+            <a href="{% url 'add_lesson' course.id %}" class="btn btn-success add-lesson-btn">Add Lesson</a>
         </div>
         <div class="col-md-4">
             <div class="card">
