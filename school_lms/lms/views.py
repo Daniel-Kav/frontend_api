@@ -60,6 +60,7 @@ class RegistrationView(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
 
+
 class AddCourseView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Course
     form_class = CoursesForm

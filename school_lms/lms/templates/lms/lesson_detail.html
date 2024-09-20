@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ lesson.title }} | LMS Platform{% endblock %}
+
+{% block extra_css %}
+<style>
+    .lesson-detail {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .lesson-title {
+        font-size: 2rem;
+        color: #007bff;
+        margin-bottom: 1rem;
+    }
+    .lesson-content {
+        font-size: 1.1rem;
+        color: #333;
+        line-height: 1.6;
+    }
+    .dark-theme {
+        background-color: #343a40;
+        color: #f8f9fa;
+    }
+    .dark-theme .lesson-detail {
+        background-color: #495057;
+        border-color: #6c757d;
+    }
+    .theme-toggle {
+        margin-bottom: 1rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container lesson-detail {% if user.is_authenticated and user.profile.is_dark_theme %}dark-theme{% endif %}">
+    <h1 class="lesson-title">{{ lesson.title }}</h1>
+    <div class="lesson-content">{{ lesson.content|safe }}</div>
+    
+    <div class="theme-toggle">
+        <button onclick="toggleTheme()" class="btn btn-secondary">Toggle Dark Theme</button>
+    </div>
+    
+    <div class="mt-4">
+        <a href="{% url 'course_details' lesson.course.id %}" class="btn btn-secondary">Back to Course</a>
+    </div>
+</div>
+
+<script>
+    function toggleTheme() {
+        const lessonDetail = document.querySelector('.lesson-detail');
+        lessonDetail.classList.toggle('dark-theme');
+        // Optionally, save the theme preference in local storage or send to server
+    }
+</script>
+{% endblock %}
