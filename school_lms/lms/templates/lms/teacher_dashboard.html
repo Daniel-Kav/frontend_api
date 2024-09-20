@@ -5,6 +5,42 @@
 
 {% block extra_css %}
 <style>
+    .dashboard-wrapper {
+        display: flex;
+        min-height: calc(100vh - 56px);
+    }
+    .sidebar {
+        width: 250px;
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+        color: #fff;
+        padding-top: 20px;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+    .sidebar .nav-link {
+        color: #ecf0f1;
+        transition: all 0.3s ease;
+        padding: 12px 20px;
+        border-left: 4px solid transparent;
+    }
+    .sidebar .nav-link:hover {
+        color: #fff;
+        background-color: rgba(255,255,255,0.1);
+        border-left: 4px solid #3498db;
+    }
+    .sidebar .nav-link.active {
+        color: #fff;
+        background-color: rgba(52, 152, 219, 0.2);
+        border-left: 4px solid #3498db;
+    }
+    .sidebar .nav-link i {
+        margin-right: 10px;
+        font-size: 1.1em;
+    }
+    .main-content {
+        flex-grow: 1;
+        padding: 20px;
+        background-color: #f8f9fa;
+    }
     .dashboard-card {
         transition: all 0.3s ease;
         border: none;
@@ -20,79 +56,120 @@
         font-size: 2.5rem;
         color: #007bff;
     }
+    .stats-card {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .stats-card h3 {
+        margin-bottom: 0;
+        font-weight: bold;
+    }
+    .stats-card p {
+        color: #6c757d;
+        margin-bottom: 0;
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4">Welcome, {{ user.first_name }}!</h1>
-    
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card dashboard-card">
-                <div class="card-body text-center">
-                    <i class="fas fa-book-open card-icon mb-3"></i>
-                    <h5 class="card-title">My Courses</h5>
-                    <p class="card-text">Manage your courses</p>
-                    <a href="" class="btn btn-primary">View Courses</a>
-                </div>
-            </div>
+<div class="dashboard-wrapper">
+    <nav class="sidebar">
+        <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-book-open"></i> My Courses
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_course' %}">
+                        <i class="fas fa-plus-circle"></i> Add Course
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-users"></i> Students
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-cog"></i> Settings
+                    </a>
+                </li>
+            </ul>
         </div>
+    </nav>
+
+    <main class="main-content">
+        <h1 class="mb-4">Welcome, {{ user.first_name }}!</h1>
         
-        <div class="col-md-4 mb-4">
-            <div class="card dashboard-card">
-                <div class="card-body text-center">
-                    <i class="fas fa-plus-circle card-icon mb-3"></i>
-                    <h5 class="card-title">Add New Course</h5>
-                    <p class="card-text">Create a new course</p>
-                    <a href="{% url 'add_course' %}" class="btn btn-success">Add Course</a>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <h3>{{ courses_count }}</h3>
+                    <p>Total Courses</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <h3>{{ students_count }}</h3>
+                    <p>Total Students</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <h3>{{ lessons_count }}</h3>
+                    <p>Total Lessons</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <h3>{{ quizzes_count }}</h3>
+                    <p>Total Quizzes</p>
                 </div>
             </div>
         </div>
-        
-        <div class="col-md-4 mb-4">
-            <div class="card dashboard-card">
-                <div class="card-body text-center">
-                    <i class="fas fa-users card-icon mb-3"></i>
-                    <h5 class="card-title">Students</h5>
-                    <p class="card-text">View enrolled students</p>
-                    <a href="" class="btn btn-info">View Students</a>
+
+        <div class="row mt-4">
+            <div class="col-md-6 mb-4">
+                <div class="card dashboard-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Recent Activities</h5>
+                        <ul class="list-group list-group-flush">
+                            {% for activity in recent_activities %}
+                                <li class="list-group-item">{{ activity }}</li>
+                            {% empty %}
+                                <li class="list-group-item">No recent activities</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+                <div class="card dashboard-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Upcoming Deadlines</h5>
+                        <ul class="list-group list-group-flush">
+                            {% for deadline in upcoming_deadlines %}
+                                <li class="list-group-item">{{ deadline }}</li>
+                            {% empty %}
+                                <li class="list-group-item">No upcoming deadlines</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div class="row mt-4">
-        <div class="col-md-6 mb-4">
-            <div class="card dashboard-card">
-                <div class="card-body">
-                    <h5 class="card-title">Recent Activities</h5>
-                    <ul class="list-group list-group-flush">
-                        {% for activity in recent_activities %}
-                            <li class="list-group-item">{{ activity }}</li>
-                        {% empty %}
-                            <li class="list-group-item">No recent activities</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-6 mb-4">
-            <div class="card dashboard-card">
-                <div class="card-body">
-                    <h5 class="card-title">Upcoming Deadlines</h5>
-                    <ul class="list-group list-group-flush">
-                        {% for deadline in upcoming_deadlines %}
-                            <li class="list-group-item">{{ deadline }}</li>
-                        {% empty %}
-                            <li class="list-group-item">No upcoming deadlines</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    </main>
 </div>
 {% endblock %}
 
