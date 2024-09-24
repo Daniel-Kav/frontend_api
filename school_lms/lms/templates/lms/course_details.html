@@ -82,7 +82,7 @@
                     <p class="card-text"><strong>Teacher:</strong> {{ course.user.get_full_name }}</p>
                     <p class="card-text"><strong>Duration:</strong> {{ course.duration }} weeks</p>
                     {% if lessons %}
-                        <a href="{% url 'lesson_detail' lessons.first.id %}" class="btn btn-primary btn-block start-course-btn">Start Course</a>
+                        <a href="{% lesson_detail' course.id course.lessons.0.id %}" class="btn btn-primary btn-block start-course-btn">Start Course</a>
                     {% else %}
                         <a href="#" class="btn btn-secondary btn-block start-course-btn" disabled>No lessons available to start the course</a>
                     {% endif %}
