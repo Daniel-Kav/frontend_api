@@ -4,3 +4,6 @@ from django.shortcuts import render
 
 def home (request):
     return render(request, 'counter/home.html')
+
+def counter(request):
+    

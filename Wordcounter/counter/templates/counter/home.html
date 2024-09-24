@@ -15,8 +15,8 @@
             <a href="{% url 'home' %}" class="text-2xl font-bold">Word Counter</a>
             <ul class="flex space-x-4">
                 <li><a href="{% url 'home' %}" class="hover:text-blue-200">Home</a></li>
-                <li><a href="{% url 'about' %}" class="hover:text-blue-200">About</a></li>
-                <li><a href="{% url 'contact' %}" class="hover:text-blue-200">Contact</a></li>
+                <li><a href="" class="hover:text-blue-200">About</a></li>
+                <li><a href="" class="hover:text-blue-200">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -24,7 +24,7 @@
     <main class="container mx-auto mt-8 px-4 flex-grow">
         <h1 class="text-3xl font-bold mb-6 text-center">Welcome to Word Counter</h1>
         <div class="bg-white p-6 rounded-lg shadow-md">
-            <form action="{% url 'count' %}" method="post" class="space-y-4">
+            <form action="" method="post" class="space-y-4">
                 {% csrf_token %}
                 <div>
                     <label for="text" class="block text-sm font-medium text-gray-700 mb-2">Enter your text:</label>
