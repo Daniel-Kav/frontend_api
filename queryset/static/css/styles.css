@@ -1,5 +1,12 @@
 h1 {
-    color: #cd3cb5
+    color: #cd3cb5;
+    text-decoration: underline;
+}
+
+.list{
+    color: #cd3cb5;
+    padding: 1rem;
+    display: flex;
 }
 
 form {
