@@ -10,4 +10,3 @@ def  home(request):
 class HomeView(ListView):
     model = Food
     template_name = 'home.html'
-    queryset = Food.objects.filter(name__contains="b")

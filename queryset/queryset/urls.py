@@ -20,5 +20,5 @@ from foods import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.HomeView.as_view())
+    path('', views.HomeView.as_view(template_name = 'home.html'))
 ]
