@@ -34,6 +34,15 @@ class CourseDetailView(DetailView):
         context['lessons'] = self.object.lessons.all()
         return context
 
+class LessonListView(ListView):
+    model = Lesson
+    template_name = 'lms/lesson_list.html'
+    context_object_name = 'lessons'
+
+    def get_queryset(self):
+        course_id = self.kwargs.get('course_id')
+        return Lesson.objects.filter(course__id=course_id)
+
 class LessonDetailView(DetailView):
     model = Lesson
     template_name = 'lms/lesson_details.html'
@@ -43,6 +52,11 @@ class LessonDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['course'] = self.object.course
         return context
+    
+    def get_object(self):
+        # Safely retrieve the 'pk' from self.kwargs
+        pk = self.kwargs.get('pk')
+        return Lesson.objects.get(pk=pk)
 
 class CustomLoginView(LoginView):
     template_name = 'lms/login.html'
