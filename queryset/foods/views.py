@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .models import Food
 from django.views.generic import ListView, CreateView
 from .forms import FoodForm
@@ -19,6 +19,20 @@ def add_food(request):
             form.save()
             messages.success(request, 'food added successfully')
             return redirect('home')
+        else:
+            messages.error(request, 'fill the form with the correct values')
     else:
         form = FoodForm()
     return render(request, 'food.html', {'form': form})
+
+def edit_food(request, pk):
+    food = get_object_or_404(Food, pk=pk)
+    if request.method == 'POST':
+        form = FoodForm(request.POST ,instance=food)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'food successfully edited')
+            return redirect('home')
+        else:
+            messages.error(request, 'food not found')
+            return render(request, 'food.html', {'form': form})
