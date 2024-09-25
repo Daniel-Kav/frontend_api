@@ -49,3 +49,11 @@ def edit_food(request, pk):
     else:
         form = FoodForm(instance=food)
     return render(request, 'edit_food.html',{'form':form})
+
+def delete_food(request, pk):
+    food = get_object_or_404(Food, pk=pk)
+    if request.method == 'GET':
+        return render(request, 'delete_food.html',{'pk':pk})
+    if request.method == 'POST':
+        food.delete()
+        messages.success(request, 'food deleted successfully')
