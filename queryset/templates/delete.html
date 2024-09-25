@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <p>Are you sure that you want to delete the post "{{food.name}}"?</p>
+        <div>
+            <button type="submit">Yes, Delete</button>
+            <a href="{% url 'home' %}">Cancel</a>
+        </div>
+    </form>
+</body>
+</html>

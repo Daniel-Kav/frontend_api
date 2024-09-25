@@ -25,6 +25,7 @@
             <p>{{food.description}}</p>
         </li>
         <a href="{% url 'edit_food' food.id %}"><button>edit</button></a>
+        <a href="{% url 'delete_food' food.id %}"><button>delete</button></a>
     {% endfor %}
     <a href="{% url 'add_food' %}"><button>add food</button></a>
 </body>
