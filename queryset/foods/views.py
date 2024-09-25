@@ -25,14 +25,27 @@ def add_food(request):
         form = FoodForm()
     return render(request, 'food.html', {'form': form})
 
+# def edit_food(request, pk):
+#     food = get_object_or_404(Food, pk=pk)
+#     if request.method == 'POST':
+#         form = FoodForm(request.POST ,instance=food)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, 'food successfully edited')
+#             return redirect('home')
+#     else:
+#         form = FoodForm(initial= food)
+#         messages.error(request, 'food not found')
+#         return render(request, 'edit_food.html', {'form': form})
+
 def edit_food(request, pk):
-    food = get_object_or_404(Food, pk=pk)
+    food = Food.objects.get(pk=pk)
     if request.method == 'POST':
-        form = FoodForm(request.POST ,instance=food)
+        form = FoodForm(request.POST , instance=food)
         if form.is_valid():
             form.save()
-            messages.success(request, 'food successfully edited')
+            messages.success(request,'food updated successfully')
             return redirect('home')
-        else:
-            messages.error(request, 'food not found')
-            return render(request, 'food.html', {'form': form})
+    else:
+        form = FoodForm(instance=food)
+    return render(request, 'edit_food.html',{'form':form})

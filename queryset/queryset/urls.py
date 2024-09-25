@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.HomeView.as_view(template_name = 'home.html'), name='home'),
     path('add-food/', views.add_food, name='add_food'),
+    path('edit-food/<int:pk>', views.edit_food, name='edit_food')
 ]

@@ -24,6 +24,7 @@
         <li class="list">{{food.name}}
             <p>{{food.description}}</p>
         </li>
+        <a href="{% url 'edit_food' food.id %}"><button>edit</button></a>
     {% endfor %}
     <a href="{% url 'add_food' %}"><button>add food</button></a>
 </body>
