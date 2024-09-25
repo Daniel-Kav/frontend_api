@@ -7,7 +7,7 @@ class Food(models.Model):
     name = models.CharField(max_length=100)
     color = models.CharField(max_length=100)
     description = models.TextField()
-    cook = models.ForeignKey(User, on_delete=models.SET_NULL)
+    cook = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name

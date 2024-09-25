@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Food
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 
 # Create your views here.
 def  home(request):
@@ -10,3 +10,7 @@ def  home(request):
 class HomeView(ListView):
     model = Food
     template_name = 'home.html'
+
+def add_food(request):
+    if request.method == 'POST':
+        form = FoodForm(request.POST)
