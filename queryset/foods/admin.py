@@ -4,6 +4,6 @@ from .models import Food
 
 # class FoodAdmin(admin.Model):...
 class FoodAdmin(admin.ModelAdmin):
-    list_display = ['name', 'color', ]
+    list_display = ['name', 'color', 'description',]
 
 admin.site.register(Food, FoodAdmin)
