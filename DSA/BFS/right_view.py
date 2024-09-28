@@ -41,4 +41,3 @@ root.left.left.right = Node(8)
 
 sol = Solution()
 print("Right view of the binary tree is:", sol.right_view(root))
-
