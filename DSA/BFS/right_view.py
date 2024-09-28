@@ -5,20 +5,21 @@ class Solution:
         queue = []
         queue.append(root)
         result = []
+        height = 0
 
         while queue:
             count = len(queue)
-
+            height += 1
             for i in range(count):
                 node = queue.pop(0)
 
-                if i == count - 1:
+                if i == 0:
                     result.append(node.data) # append the last node which is ussually the right node to the right view
                 if node.left :
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
-        return result
+        return result, height
 
 
 
@@ -40,3 +41,4 @@ root.left.left.right = Node(8)
 
 sol = Solution()
 print("Right view of the binary tree is:", sol.right_view(root))
+
