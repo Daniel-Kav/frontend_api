@@ -15,11 +15,8 @@
             <div class="d-flex">
                 {% if user.is_authenticated %}
                 <span class="navbar-text me-3">Welcome, {{ user.username }}</span>
-                <a href="{% url 'login' %}" class="btn btn-outline-light">Logout</a>
                 {% else %}
-                <a href="{% url 'login' %}" class="btn btn-outline-light me-2">Login</a>
-                <a href="{% url 'password_change' %}" class="btn btn-outline-light me-2">Change Password</a>
-                <a href="{% url 'password_reset' %}" class="btn btn-outline-light">Reset Password</a>
+                <a href="{% url 'new' %}" class="btn btn-outline-light me-2">New Task</a>
                 {% endif %}
             </div>
         </div>
