@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>list to display</h1>
+    <ul>
+        <!-- iterate over object list -->
+         {% for object in object_list %}
+         <li>{{ object.title }}</li>
+         <li>{{ object.description }}</li>
+
+         <hr/>
+         {% empty %}
+         <li> No onjects yet .</li>
+         {% endfor %}
+    </ul>
+
+{% endblock %}
