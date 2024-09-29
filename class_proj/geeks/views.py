@@ -15,3 +15,5 @@ class GeeksCreate(CreateView):
 
     #specify fields to be displayed
     fields = ['title', 'description', ]
+
+    template_name = 'geeks/sample.html'
