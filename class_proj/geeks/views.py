@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
-from django.views.generic import CreateView,ListView,DeleteView,DetailView
+from django.views.generic import CreateView,ListView,DeleteView,DetailView,UpdateView
 from .models import SampleModel
 
 # Create your views here.
@@ -29,3 +29,8 @@ class GeeksDetail(DetailView):
     model = SampleModel
 
     template_name = 'geeks/detail.html'
+
+class GeeksUpdate(UpdateView):
+    model = SampleModel
+    template_name = 'geeks/update.html'
+    success_url = "/"
