@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
-from django.views.generic import CreateView,ListView,DeleteView
+from django.views.generic import CreateView,ListView,DeleteView,DetailView
 from .models import SampleModel
 
 # Create your views here.
@@ -23,3 +23,9 @@ class GeeksList(ListView):
     model = SampleModel
 
     template_name = 'geeks/list.html'
+
+class GeeksDetail(DetailView):
+
+    model = SampleModel
+
+    template_name = 'geeks/detail.html'

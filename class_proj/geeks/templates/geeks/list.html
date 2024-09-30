@@ -7,11 +7,13 @@
          {% for object in object_list %}
          <li>{{ object.title }}</li>
          <li>{{ object.description }}</li>
+        <a href="{% url 'detail' object.id %}" class="btn btn-outline-dark me-2">Read More</a>
 
          <hr/>
          {% empty %}
          <li> No onjects yet .</li>
          {% endfor %}
     </ul>
+                <a href="{% url 'home' %}" class="btn btn-outline-dark me-2">Back</a>
 
 {% endblock %}
