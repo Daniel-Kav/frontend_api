@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.urls import reverse
+from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView,ListView,DeleteView,DetailView,UpdateView
 from .models import SampleModel
@@ -17,6 +17,7 @@ class GeeksCreate(CreateView):
     fields = ['title', 'description', ]
 
     template_name = 'geeks/sample.html'
+    success_url = reverse_lazy('list')
 
 class GeeksList(ListView):
     # specify the model for list fecthing
@@ -32,5 +33,7 @@ class GeeksDetail(DetailView):
 
 class GeeksUpdate(UpdateView):
     model = SampleModel
+    fields = ['title', 'description', ]
+
     template_name = 'geeks/update.html'
-    success_url = "/"
+    success_url = "/list"

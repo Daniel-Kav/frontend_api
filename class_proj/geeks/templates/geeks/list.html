@@ -8,6 +8,7 @@
          <li>{{ object.title }}</li>
          <li>{{ object.description }}</li>
         <a href="{% url 'detail' object.id %}" class="btn btn-outline-dark me-2">Read More</a>
+        <a href="{% url 'update' object.id %}" class="btn btn-outline-dark me-2">edit</a>
 
          <hr/>
          {% empty %}
