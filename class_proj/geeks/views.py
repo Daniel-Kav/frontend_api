@@ -37,3 +37,8 @@ class GeeksUpdate(UpdateView):
 
     template_name = 'geeks/update.html'
     success_url = "/list"
+
+class GeeksDelete(DeleteView):
+    model = SampleModel
+    template_name = 'geeks/delete.html'
+    success_url = reverse_lazy("list")
