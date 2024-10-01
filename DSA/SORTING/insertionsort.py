@@ -29,10 +29,10 @@ def insertion_sort(arr):
         key = arr[i]
         j = i - 1
 
-        while j>= 0 and key < arr[j]:
+        while j >= 0 and key < arr[j]:
             arr[j+1] = arr[j]
-            j = j - 1
-        arr[j + 1] = key
+            j -= 1
+        arr[j+  1] = key
 arr = [10, 3, 15, 7, 8]
 insertion_sort(arr)
 print("Sorted array:", arr)
