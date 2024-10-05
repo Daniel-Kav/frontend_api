@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }} - My Blog{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>{{ post.title }}</h1>
+    <p class="text-muted">By {{ post.author.username }} on {{ post.created_at|date:"F j, Y" }}</p>
+    <div class="post-content">
+        <p>{{ post.content }}</p>
+    </div>
+
+    <hr>
+
+    <div class="mt-4">
+        <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+        {% if request.user == post.author %}
+            <a href="{% url 'edit_post' post.id %}" class="btn btn-warning">Edit</a>
+            <form action="{% url 'delete_post' post.id %}" method="POST" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
