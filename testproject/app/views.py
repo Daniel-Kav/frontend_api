@@ -8,3 +8,6 @@ def home(request):
         'posts': posts
     }
     return render(request, 'home.html', context)
+
+def create_post(request):
+    pass
