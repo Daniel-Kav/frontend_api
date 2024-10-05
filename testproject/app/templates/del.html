@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div>
+    <h1>Confirm delete</h1>
+    <form action="" method="post">
+        {%csrf_token%}
+        <input type="submit" value="submit" class="btn btn-outline-dark">
+    </form>
+    <a href="{% url 'post_detail' %}">cancel</a>
+</div>
+
+{% endblock %}

@@ -41,10 +41,14 @@ def edit_post(request, pk):
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
-            return redirect('post_detail')
+            return redirect('post_detail', pk = pk)
     else:
         form = PostForm(instance=post)
     return render(request, 'edit.html', {'form': form })
 
 def del_post(request, pk):
-    pass
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.method == 'POST':
+        post.delete()
+    return redirect('home')
