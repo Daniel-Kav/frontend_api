@@ -8,3 +8,4 @@ class PostForm(ModelForm):
             'title',
             'content'
         ]
+    
