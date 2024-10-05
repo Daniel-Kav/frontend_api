@@ -22,4 +22,4 @@ def create_post(request):
     context = {
         'form': form
     }
-    return render(request, 'home.html', context)
+    return render(request, 'post.html', context)
