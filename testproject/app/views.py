@@ -33,3 +33,18 @@ def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
     return render(request, 'detail.html', {'post': post})
+
+def edit_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('post_detail')
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'edit.html', {'form': form })
+
+def del_post(request, pk):
+    pass
