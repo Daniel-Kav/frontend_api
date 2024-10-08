@@ -7,15 +7,27 @@ const App = () => {
   const[books , setBooks ]= useState([])
 
   const getBooks = () => {
-    axios.get('http://localhost:8000/api/books')
+    axios.get('http://127.0.0.1:8000/api/books/')
     .then(response => setBooks(response.data))
     .catch(error => {
-      consle.error('There was an error fetching books', error)
+      console.error('There was an error fetching books', error)
     })
   }
+  useEffect(() => {
+    getBooks()
+  },[])
   return (
     <div>
       <h1> My frontend </h1>
+      <ul>
+        {books && books.map(book =>{
+          <li key={book.id}>
+            <h3>{book.title}</h3>
+            <p>{book.description}</p>
+            <p>{book.read}</p>
+          </li>
+        })}
+      </ul>
     </div>
   )
 }
