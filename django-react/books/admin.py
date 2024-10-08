@@ -4,8 +4,6 @@ from .models import Book
 # Register your models here.
 
 class BookAdmin(admin.ModelAdmin):
-    class Meta:
-        model = Book
-        fields = '__all__'
+    list_display = ('title','description','read')
 
 admin.site.register(Book, BookAdmin)
