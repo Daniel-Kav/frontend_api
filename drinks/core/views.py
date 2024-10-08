@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from rest_framework import viewsets,status
 from .models import Drink
 from .serializers import DrinkSerializer
@@ -28,3 +28,14 @@ def drink_list(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+@api_view(['GET', 'PUT','DELETE'])
+def drink_detail(request,pk):
+    drink = get_object_or_404(Drink, pk=pk)
+
+    if request.method == 'GET':
+        serializer = DrinkSerializer(drink)
+        return Response(serializer.date, status=status.HTTP_200_OK)
+    if request.method == 'PUT':
+        pass
+    if request.method == 'DELETE':
+        pass
