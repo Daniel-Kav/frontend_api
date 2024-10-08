@@ -26,6 +26,16 @@ const App = () => {
     })
   }
 
+  const deleteBook = (id) => {
+    axios.delete(`http://localhost:8000/api/books/${id}/`)
+    .then( () => {
+      getBooks()
+    })
+    .catch(error => {
+      console.error('Error Deleting Book', error)
+    })
+  }
+
   useEffect(() => {
     getBooks()
   },[])
@@ -58,6 +68,7 @@ const App = () => {
             <h3>{book.title}</h3>
             <p>{book.description}</p>
             <p>{book.read ? 'Read' : 'Not Read'}</p>
+            <button onClick={() => deleteBook(book.id)}>delete</button>
           </li>
         ))}
       </ul>
