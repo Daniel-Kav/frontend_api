@@ -54,7 +54,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8000'
+    'http://localhost:5173'
 ]
 
 ROOT_URLCONF = 'bookstore.urls'

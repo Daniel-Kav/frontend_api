@@ -20,13 +20,13 @@ const App = () => {
     <div>
       <h1> My frontend </h1>
       <ul>
-        {books && books.map(book =>{
+        { books.map(book =>(
           <li key={book.id}>
             <h3>{book.title}</h3>
             <p>{book.description}</p>
-            <p>{book.read}</p>
+            <p>{book.read ? 'Read' : 'Not Read'}</p>
           </li>
-        })}
+        ))}
       </ul>
     </div>
   )
