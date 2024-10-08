@@ -1,79 +1,101 @@
-import React, { useEffect, useState}  from 'react'
-import axios from 'axios'
-
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const App = () => {
-
-  const[books , setBooks ]= useState([])
-  const[newBook, setnewBook] = useState({ title: '', description :'', read : false})
+  const [books, setBooks] = useState([]);
+  const [newBook, setNewBook] = useState({ title: '', description: '', read: false });
+  const [editBookId, setEditBookId] = useState(null);
 
   const getBooks = () => {
-    axios.get('http://127.0.0.1:8000/api/books/')
-    .then(response => setBooks(response.data))
-    .catch(error => {
-      console.error('There was an error fetching books', error)
-    })
-  }
+    axios.get('http://localhost:8000/api/books/')
+      .then(res => setBooks(res.data))
+      .catch(error => {
+        console.error('There was an error fetching books', error);
+      });
+  };
 
   const addBook = () => {
     axios.post('http://localhost:8000/api/books/', newBook)
-    .then(()=> {
-      getBooks()
-      setnewBook({ title: '', description: '', read: false})
-    })
-    .catch( error => {
-      console.error( 'Error adding book ', error)
-    })
-  }
+      .then(() => {
+        getBooks();
+        setNewBook({ title: '', description: '', read: false });
+      })
+      .catch(error => {
+        console.error('There was an error adding the book', error);
+      });
+  };
+
+  const updateBook = (id) => {
+    axios.put(`http://localhost:8000/api/books/${id}/`, newBook)
+      .then(() => {
+        getBooks();
+        setEditBookId(null);
+        setNewBook({ title: '', description: '', read: false });
+      })
+      .catch(error => {
+        console.error('There was an error updating the book', error);
+      });
+  };
 
   const deleteBook = (id) => {
     axios.delete(`http://localhost:8000/api/books/${id}/`)
-    .then( () => {
-      getBooks()
-    })
-    .catch(error => {
-      console.error('Error Deleting Book', error)
-    })
-  }
+      .then(() => {
+        getBooks();
+      })
+      .catch(error => {
+        console.error('There was an error deleting the book', error);
+      });
+  };
 
   useEffect(() => {
-    getBooks()
-  },[])
+    getBooks();
+  }, []);
+
   return (
     <div>
-      <h1> My frontend </h1>
-      <h2>Add Book</h2>
-      <input type="text" 
-        placeholder='Title'
+      <h1>Kavatha's Bookshop</h1>
+      
+      <h2>{editBookId ? 'Edit Book' : 'Add Book'}</h2>
+      <input
+        type="text"
+        placeholder="Title"
         value={newBook.title}
-        onChange={(e) => setnewBook({...newBook, title: e.target.value})}
+        onChange={(e) => setNewBook({ ...newBook, title: e.target.value })}
       />
-
-      <input type="text" 
-        placeholder='description'
+      <input
+        type="text"
+        placeholder="Description"
         value={newBook.description}
-        onChange={(e) => setnewBook({...newBook, description: e.target.value})}
+        onChange={(e) => setNewBook({ ...newBook, description: e.target.value })}
       />
-      <label htmlFor="">
-        <input type="checkbox" 
-          checked = {newBook.checked}
-          onChange={(e) => setnewBook({...newBook, read: e.target.checked})}
+      <label>
+        <input
+          type="checkbox"
+          checked={newBook.read}
+          onChange={(e) => setNewBook({ ...newBook, read: e.target.checked })}
         />
         Read
       </label>
-      <button onClick={() => addBook()}>Add Book</button>
+      <button onClick={editBookId ? () => updateBook(editBookId) : addBook}>
+        {editBookId ? 'Update' : 'Add'}
+      </button>
+
       <ul>
-        { books.map(book =>(
+        {books.map(book => (
           <li key={book.id}>
-            <h3>{book.title}</h3>
+            <h2>{book.title}</h2>
             <p>{book.description}</p>
             <p>{book.read ? 'Read' : 'Not Read'}</p>
-            <button onClick={() => deleteBook(book.id)}>delete</button>
+            <button onClick={() => {
+              setEditBookId(book.id)
+              setNewBook({ title: book.title, description: book.description, read: book.read })
+            }}>Edit</button>
+            <button onClick={() => deleteBook(book.id)}>Delete</button>
           </li>
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
