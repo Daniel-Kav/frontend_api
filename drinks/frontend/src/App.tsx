@@ -30,8 +30,16 @@ const App = () => {
     })
   }
 
-  const deleteDrink = () => {
-    axios.delete('http://127.0.0.1:8000/api/drinks/')
+  const updateDrink = () => {
+    axios.put(`http://127.0.0.1:8000/api/drinks/${id}`)
+    .then(() => {
+      getDrinks()
+      setNewDrink()
+    })
+  }
+
+  const deleteDrink = (id: Number) => {
+    axios.delete(`http://127.0.0.1:8000/api/drinks/${id}`)
     .then(() => getDrinks())
     .catch(error => {
       console.error('Failed to delete drink', error)
@@ -63,7 +71,7 @@ const App = () => {
           <li key={drink.id}>
             <h2>{drink.name}</h2>
             <p>{drink.description}</p>
-            <button onClick={() => deleteDrink()}>Delete</button>
+            <button onClick={() => deleteDrink(drink.id)}>Delete</button>
           </li>
         ))}
       </ul>
