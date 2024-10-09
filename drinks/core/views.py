@@ -41,7 +41,7 @@ class DrinkView(viewsets.ModelViewSet):
 #         pass
 
 @api_view(['GET','POST'])
-def drink_list(request):
+def drink_list(request, format = None):
     drinks = Drink.objects.all()
     if request.method == 'GET':
         serializer = DrinkSerializer(drinks, many=True)
@@ -55,7 +55,7 @@ def drink_list(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET','PUT','DELETE'])
-def drink_detail(request, pk):
+def drink_detail(request, pk, format = None):
     drink = get_object_or_404(Drink, pk=pk)
 
     if request.method == 'GET':
