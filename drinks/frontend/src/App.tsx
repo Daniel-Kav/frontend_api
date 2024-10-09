@@ -20,13 +20,21 @@ const App = () => {
   }
 
   const addDrink = () => {
-    axios.post('http://localhost:8000/api/drinks/')
+    axios.post('http://localhost:8000/api/drinks/', newdrink)
     .then(() => {
       getDrinks()
       setNewDrink({ name: '', description: ''})
     })
     .catch(error => {
       console.error('Failed to add book', error)
+    })
+  }
+
+  const deleteDrink = () => {
+    axios.delete('http://127.0.0.1:8000/api/drinks/')
+    .then(() => getDrinks())
+    .catch(error => {
+      console.error('Failed to delete drink', error)
     })
   }
 
@@ -41,14 +49,21 @@ const App = () => {
       <input type="text" 
         placeholder="add a drink"
         value={newdrink.name}
-        onChange={(e) => {...newdrink, name: e.target.value}}
+        onChange={(e) => setNewDrink({...newdrink, name: e.target.value})}
       />
 
+      <input type="text" 
+        placeholder="description"
+        value={newdrink.description}
+        onChange={(e) => setNewDrink({ ...newdrink, description: e.target.value})}
+      />
+      <button onClick={() => addDrink()}>ADD Drink</button>
       <ul>
         {drinks && drinks.map((drink : Drink)=> (
           <li key={drink.id}>
             <h2>{drink.name}</h2>
             <p>{drink.description}</p>
+            <button onClick={() => deleteDrink()}>Delete</button>
           </li>
         ))}
       </ul>
