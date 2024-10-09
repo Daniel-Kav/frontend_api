@@ -24,6 +24,6 @@ from core.views import DrinkView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blog/', include('core.urls'))
+    path('api/', include('core.urls'))
 ]
 
