@@ -11,31 +11,65 @@ class DrinkView(viewsets.ModelViewSet):
     serializer_class = DrinkSerializer
     queryset = Drink.objects.all()
 
+# @api_view(['GET','POST'])
+# def drink_list(request):
+#     #get all the objects
+#     #serialize them 
+#     #return a json object
+#     if request.method == 'GET':
+#         drinks = Drink.objects.all()
+#         serializer = DrinkSerializer(drinks, many = True)
+#         return JsonResponse({ 'drinks': serializer.data}, safe=False)
+
+
+#     if request.method == 'POST':
+#         serializer = DrinkSerializer(data = request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+# @api_view(['GET', 'PUT','DELETE'])
+# def drink_detail(request,pk):
+#     drink = get_object_or_404(Drink, pk=pk)
+
+#     if request.method == 'GET':
+#         serializer = DrinkSerializer(drink)
+#         return Response(serializer.date, status=status.HTTP_200_OK)
+#     if request.method == 'PUT':
+#         pass
+#     if request.method == 'DELETE':
+#         pass
+
 @api_view(['GET','POST'])
 def drink_list(request):
-    #get all the objects
-    #serialize them 
-    #return a json object
+    drinks = Drink.objects.all()
     if request.method == 'GET':
-        drinks = Drink.objects.all()
-        serializer = DrinkSerializer(drinks, many = True)
-        return JsonResponse({ 'drinks': serializer.data}, safe=False)
-
-
+        serializer = DrinkSerializer(drinks, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     if request.method == 'POST':
         serializer = DrinkSerializer(data = request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'PUT','DELETE'])
-def drink_detail(request,pk):
+@api_view(['GET','PUT','DELETE'])
+def drink_detail(request, pk):
     drink = get_object_or_404(Drink, pk=pk)
 
     if request.method == 'GET':
         serializer = DrinkSerializer(drink)
-        return Response(serializer.date, status=status.HTTP_200_OK)
+        return Response(serializer.data)
     if request.method == 'PUT':
-        pass
+        serializer = DrinkSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
     if request.method == 'DELETE':
-        pass
+        drink.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+        
