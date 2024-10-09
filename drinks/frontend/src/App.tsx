@@ -10,6 +10,7 @@ type Drink = {
 const App = () => {
   const[drinks, setDrinks] = useState([])
   const[newdrink, setNewDrink] = useState({ name : '',description: ''})
+  const[editDrinkId, setEditDrinkId] = useState(0)
 
   const  getDrinks = () => {
     axios.get('http://localhost:8000/api/drinks/')
@@ -30,11 +31,12 @@ const App = () => {
     })
   }
 
-  const updateDrink = () => {
-    axios.put(`http://127.0.0.1:8000/api/drinks/${id}`)
+  const updateDrink = (id: Number) => {
+    axios.put(`http://127.0.0.1:8000/api/drinks/${id}`, newdrink)
     .then(() => {
       getDrinks()
-      setNewDrink()
+      setNewDrink({ name:'', description: ''})
+      setEditDrinkId(0)
     })
   }
 
@@ -65,12 +67,16 @@ const App = () => {
         value={newdrink.description}
         onChange={(e) => setNewDrink({ ...newdrink, description: e.target.value})}
       />
-      <button onClick={() => addDrink()}>ADD Drink</button>
+      <button onClick={editDrinkId ? () => updateDrink(editDrinkId) : addDrink}>{editDrinkId ? 'Update' : 'Update' }</button>
       <ul>
         {drinks && drinks.map((drink : Drink)=> (
           <li key={drink.id}>
             <h2>{drink.name}</h2>
             <p>{drink.description}</p>
+            <button onClick={ () => {
+              setEditDrinkId(drink.id)
+              setNewDrink({ name : drink.name, description: drink.description})
+            }}>Edit</button>
             <button onClick={() => deleteDrink(drink.id)}>Delete</button>
           </li>
         ))}
