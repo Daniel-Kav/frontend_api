@@ -27,7 +27,7 @@ def recipe_detail(request, pk):
         serializer = RecipeSerializer(recipe)
         return Response(serializer.data, status=status.HTTP_200_OK)
     if request.method == 'PUT':
-        serializer = RecipeSerializer(data = request.data)
+        serializer = RecipeSerializer(recipe, data = request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
