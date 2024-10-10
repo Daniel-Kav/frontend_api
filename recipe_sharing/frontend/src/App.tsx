@@ -1,34 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+
+interface Recipe{
+  id: number,
+  title: string,
+  description: string,
+  instructions: string,
+}
+
+const App = () => {
+  const[recipes, setRecipes] = useState([])
+
+  const getRecipes = () => {
+    axios.get('http://127.0.0.1:8000/api/recipes/')
+    .then(res => setRecipes(res.data))
+    .catch(error => {
+      console.error('failed to get recipes',error)
+    })
+  }
+
+  useEffect(() => {
+    getRecipes()
+  },[])
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <h1>Recipes Garlour</h1>
+      {recipes && recipes.map((recipe: Recipe) => (
+        <li key={recipe.id}>
+          <h3>{recipe.title}</h3>
+          <p>{recipe.description}</p>
+          <p>{recipe.instructions}</p>
+        </li>
+      )) }
+    </div>
   )
 }
 
