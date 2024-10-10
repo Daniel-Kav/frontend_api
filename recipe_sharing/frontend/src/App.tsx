@@ -28,10 +28,19 @@ const App = () => {
       getRecipes()
       setNewRecipe({title: '',description:'',instructions:'',ingredients:''})
     })
+    .catch(error => {
+      console.error('failed to add recipe', error)
+    })
   }
 
-  const deleteRecipe = () => {
-    
+  const deleteRecipe = (id: Number) => {
+    axios.delete(`http://127.0.0.1:8000/api/recipes/${id}/`)
+    .then(() => {
+      getRecipes()
+    })
+    .catch(error => {
+      console.error('Failed to delete', error)
+    })
   }
 
   useEffect(() => {
@@ -69,6 +78,7 @@ const App = () => {
           <p>{recipe.description}</p>
           <p>{recipe.ingredients}</p>
           <p>{recipe.instructions}</p>
+          <button onClick={() => deleteRecipe(recipe.id)}>Delete</button>
         </li>
       )) }
     </div>
