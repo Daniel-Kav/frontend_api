@@ -9,3 +9,7 @@ class PublisherCreateView(generics.ListCreateAPIView):
     queryset = Publisher.objects.all()
     serializer_class = PublisherSerializer
 
+# retrieve update and delete publishers
+class PUblisherDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Publisher.objects.all()
+    serializer_class = PublisherSerializer
