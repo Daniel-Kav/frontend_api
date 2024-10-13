@@ -5,6 +5,8 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 
 router.register(r'book',views.BookView,'book')
+router.register(r'pubs',views.PublisherView,'publisher')
+router.register(r'authr',views.AuthorView,'uthor')
 
 urlpatterns = router.urls
 
