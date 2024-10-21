@@ -7,6 +7,17 @@ def task_list(request):
     tasks = Task.objects.all()
     return render(request,'tasks.html',{'tasks': tasks})
 
+def add_task(request):
+    task = TaskForm(request.POST)
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('task_list')
+    else:
+        form = TaskForm()
+    return render(request,'newTask.html',{'form' : form})
+
 def task_detail(request, pk):
     task = get_object_or_404(Task, pk=pk)
 
