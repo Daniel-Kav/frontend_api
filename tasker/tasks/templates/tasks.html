@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>The Tasker App</h1>
+    <button><a href="{% url 'new_task'  %}">New Task</a></button>
     {% for task in tasks %}
         <li>
             <h4>{{task.title}}</h4>
