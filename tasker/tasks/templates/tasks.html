@@ -10,7 +10,7 @@
     {% for task in tasks %}
         <li>
             <h4>{{task.title}}</h4>
-            <p>{{task.description}}</p>
+            <button><a href="{% url 'task_detail' task.id %}">Read More ..</a></button>
         </li>
     {% endfor %}
 </body>
