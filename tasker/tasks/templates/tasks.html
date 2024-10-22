@@ -13,6 +13,7 @@
             <h4>{{task.title}}</h4>
             <button><a href="{% url 'task_detail' task.id %}">Read More ..</a></button>
             <button><a href="{% url 'task_update' task.id %}">Edit</a></button>
+            <button><a href="{% url 'task_delete' task.id %}">Delete</a></button>
         </li>
     {% endfor %}
 </body>

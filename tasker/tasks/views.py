@@ -33,3 +33,10 @@ def task_update(request,pk):
     else:
         form = TaskForm(instance=task)
     return render(request,'update.html',{'task':task,'form': form})
+
+def del_task(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    if request.method == 'POST':
+        task.delete()
+        return redirect('task_list')
+    return render(request, 'delete.html')
