@@ -14,6 +14,7 @@
                     <small>Due: {{ task.due_date }}</small>
                     <div class="mt-2">
                         <a href="{% url 'edit_task' task.pk %}" class="btn btn-secondary btn-sm">Edit</a>
+                        <a href="{% url 'del_task' task.pk %}" class="btn btn-danger btn-sm">Delete</a>
                     </div>
                 </div>
             {% endfor %}

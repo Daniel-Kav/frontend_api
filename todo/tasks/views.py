@@ -31,6 +31,6 @@ def edit_task(request,pk):
 def del_task(request,pk):
     task = get_object_or_404(Task,pk=pk)
     if request.method == 'POST':
-        task.delete
+        task.delete()
         return redirect('task_list')
     return render(request,'del.html',{'task': task})
