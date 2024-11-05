@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 from . import views
 from rest_framework import routers
 
@@ -11,4 +11,5 @@ urlpatterns = [
     path('add-task/', views.add_task, name='add_task'),
     path('edit-task/<int:pk>', views.edit_task, name='edit_task'),
     path('del-task/<int:pk>', views.del_task, name='del_task'),
+    path('', include(router.urls))
 ]
