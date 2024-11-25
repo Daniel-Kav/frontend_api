@@ -6,3 +6,6 @@ def getBlogs(request):
     blogs = Blog.objects.all()
     return render(request,'home.html',{'blogs':blogs})
 
+def addBlog(request):
+    blog = Blog
+
