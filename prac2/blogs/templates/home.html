@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Home Page</h1>
+    <button><a href="{% url 'addBlog' %}">ADD Blog</a></button>
     <div>
         {% for sample in blogs %}
         <li> {{sample.title}}</li>
