@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .models import Blog
 from .forms import BlogForm
 
@@ -17,5 +17,20 @@ def addBlog(request):
     else:
         blog = BlogForm()
     return render(request,'addblog.html',{'blog':blog})
+
+def editBlog(request,pk):
+    blog = get_object_or_404(Blog, pk=pk)
+
+    if request.method == 'POST':
+        form = BlogForm(request.POST, instance=blog)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        
+    else:
+        form = BlogForm(request.POST)
+        
+
+
 
 
