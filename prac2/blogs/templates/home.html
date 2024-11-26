@@ -13,6 +13,7 @@
         <li> {{sample.title}}</li>
             <p>{{sample.description}}</p>
     <button><a href="{% url 'editblog' sample.id %}">EDIT Blog</a></button>
+    <button><a href="{% url 'deleteblog' sample.id %}">Delete Blog</a></button>
         {% endfor %}
 
     </div>

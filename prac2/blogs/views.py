@@ -31,6 +31,15 @@ def editBlog(request,pk):
         form = BlogForm(instance=blog)
     return render(request,'editBlog.html',{'form': form})
 
+def deleteBlog(request,pk):
+    blog = get_object_or_404(Blog, pk=pk)
+
+    if request.method == 'POST':
+        blog.delete()
+        return redirect('home')
+    return render(request, 'delete.html')
+
+
 
 
 
