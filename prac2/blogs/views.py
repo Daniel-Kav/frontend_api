@@ -28,8 +28,8 @@ def editBlog(request,pk):
             return redirect('home')
         
     else:
-        form = BlogForm(request.POST)
-        
+        form = BlogForm(instance=blog)
+    return render(request,'editBlog.html',{'form': form})
 
 
 
